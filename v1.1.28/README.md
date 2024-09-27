@@ -1,7 +1,8 @@
 
 # OSI projets
 
-**AUTEUR:** Tuilier Thomas
+- **AUTEUR:** Tuilier Thomas
+- **CONTRIBUTEUR:** ONG Objectif Sciences International
 
 ## Installation du plugin
 
