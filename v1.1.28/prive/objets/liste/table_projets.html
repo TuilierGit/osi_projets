@@ -1,0 +1,77 @@
+
+<!-- On initialise les paramètres de tri par défaut -->
+[(#SET{defaut_tri, #ARRAY{
+    date, #ENV{date_sens, -1},
+    num titre, 1,
+    id_projet, 1,
+    points, -1
+}})]
+
+<!-- Début de création du tableau -->
+
+<B_liste_projets>
+    <!-- Partie avant la boucle pour faire l'affichage -->
+
+    <div class="liste-objets projets">
+    <table class='spip liste'>
+
+    <!-- Première ligne de présentation du tableau -->
+    [<caption>
+        <strong class="caption">
+            (#ENV*{titre, singulier_ou_pluriel{osi_projets:unique_projet, osi_projets:nombre_de_projets}})
+        </strong>
+    </caption>]
+
+
+        <!-- En-tête du tableau -->
+        <thead>
+            <tr class='first_row'>
+                <th class='titre principale' scope='col'>id_projet</th>
+                <th class='auteur' scope='col'>id_rubrique</th>
+                <th class='statut' scope='col'>statut</th>
+                <th class='statut' scope='col'>taille</th>
+            </tr>
+        </thead>
+
+    <!-- Corps du tableau (boucle sur les projets) -->
+    <tbody>
+        <BOUCLE_liste_projets(spip_projets) {id_projet?} {collecte #GET{id_projet}} {tri #ENV{par, id_projet}, pagination #ENV{nb, 10}} {!lang_select}>
+
+            <tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd, row_even})]">
+                <td class='titre principale' [(#LOGO_PROJET|non) colspan='1']>
+                    <div class="inner">
+                        <a>#ID_PROJET</a>
+                    </div>
+
+                   
+                </td>
+                <td class='auteur'>
+                    <div class="inner">
+                        <a >#ID_RUBRIQUE</a>
+                    </div>
+                </td>
+
+                <td class='auteur'>
+                    <div class="inner">
+                        <a >#STATUT</a>
+                    </div>
+                </td>
+
+                <td class='auteur'>
+                    <div class="inner">
+                        <a >#TAILLE</a>
+                    </div>
+                </td>
+            </tr>
+        </BOUCLE_liste_projets>
+    </tbody>
+    </table>
+</div>
+
+</B_liste_projets>
+<!-- Dans le cas où il n'y a aucun projet -->
+
+    <div class="liste-objets projets caption-wrap">
+        <strong class="caption">(#ENV*{sinon,''})</strong>
+    </div>
+<//B_liste_projets>

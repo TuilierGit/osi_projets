@@ -1,0 +1,52 @@
+<!-- <h2><:osi_projets:exemple_titre_presentation:></h2> -->
+
+<div>
+    <BOUCLE_projet(spip_projets){id_projet=#ID_PROJET}>
+
+        <div>
+            #DESCRIPTIF
+        </div>
+
+        <div>
+            <table>
+                <thead>
+                  <tr>
+                    <th scope="col"><:osi_projets:nom_etat_3:></th>
+                    <th scope="col"><:osi_projets:nombre_participants:></th>
+                    <th scope="col"><:osi_projets:date_creation:></th>
+                    <!-- <th scope="col">Nombre de sous projet</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      #OSIP_AUTEUR_DU_PROJET{#ID_PROJET, nom}
+                    </th>
+                    <td>#OSIP_NB_AUTEURS{#ID_PROJET}</td>
+                    <td>[(#DATE|affdate_jourcourt)]</td>
+                    <!-- <td>??</td> -->
+                  </tr>
+              </table>
+        </div>
+
+        <div>
+            #TEXTE
+        </div>
+
+        <div>
+          <h3><:osi_projets:liste_documents:></h3>
+
+          <div class="liste-des-documents-du-projet">
+            <INCLURE{fond=inclure/divers/documents,id_projet=#ID_PROJET,env,ajax}/>
+          </div>
+
+        </div>
+        
+
+        <section class="tiles">
+          #OSIP_SOUS_PROJETS{#ID_RUBRIQUE}
+        </section>
+
+
+    </BOUCLE_projet>
+</div>

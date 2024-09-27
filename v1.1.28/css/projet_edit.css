@@ -1,0 +1,18 @@
+
+
+.bloc-du-menu{
+    padding: 25px 25px 20px 25px;
+}
+
+
+.menu-modification-edit{
+    margin-top: 25px;
+}
+
+
+.osip-menu-modification-personnalisation{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: 25px;
+}

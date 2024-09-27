@@ -1,0 +1,18 @@
+<div style="display: flex;
+    justify-content: center;">
+    <img class="spip_logo spip_logos" alt="" src="[(#LOGO_SITE_SPIP|extraire_attribut{src})]" width="250" height="250">
+</div>
+
+<h2><:osip_notifications:demande_refuse:></h2>
+
+<p>
+    <:osip_notifications:bonjour:>,
+</p>
+<p>
+    <:osip_notifications:demande_refuse_debut:> #ENV{id_projet} <:osip_notifications:nom_projet:> "[(#VAL{'spip_projets'}|get_info_table{'titre','id_projet',#ENV{id_projet}})]" <:osip_notifications:a_ete_refusee:>
+</p>
+<p>
+    <:osip_notifications:signature:>
+</p>
+
+

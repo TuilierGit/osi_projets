@@ -1,0 +1,20 @@
+<div>
+    #ACTUALISER_LES_PROJETS
+</div>
+
+<p>Il y a actuellement #OSIP_NB_PROJETS projets.</p>
+
+<div>
+    <h2><:osi_projets:ajouter_un_projet:></h2>
+    #FORMULAIRE_CREER_UN_PROJET{#SESSION{id_auteur}}
+</div>
+
+<div>
+    <h2><:osi_projets:liste_projets:></h2>
+    <section class="tiles">
+        [(#REM) les articles de la rubrique]
+        <BOUCLE_pr_rubriques(RUBRIQUES){tout}{id_parent}{par num titre}>
+            <INCLURE{fond=inclure/btn_rubrique,id_rubrique} />
+        </BOUCLE_pr_rubriques>
+    </section>
+</div>

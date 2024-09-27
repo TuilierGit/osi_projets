@@ -1,0 +1,110 @@
+
+[(#REM) 
+    
+    Description : 
+        Page du front d'un projet, doit être appelé dans la dans le squelette de rubrique
+
+    Paramètres d'environnement : 
+        - id_rubrique (obligatoire)
+
+]
+
+<!-- Si la rubrique est un projet -->
+<BOUCLE_contenu(RUBRIQUES){id_rubrique?}{id_projet!<1}>
+
+
+    <!-- Cas où il n'appartient pas au projet -->
+    [(#SESSION{id_auteur}|oui)
+
+        <span class="image main">
+            [(#LOGO_RUBRIQUE|image_recadre{320:100,-,top=110})]
+        </span>
+
+
+        [(#SESSION{id_auteur}|filtre_verifier_auteur_projet{#ID_PROJET}|non)
+
+            <style>
+                .formulaire_spip.formulaire_ajouter_auteur_projet form{
+                    margin: 0;
+                }
+                .formulaire_spip.formulaire_ajouter_auteur_projet p{
+                    margin: 0;
+                }
+
+                .projet-cadre-demande{
+                    border: solid 1px lightgray; 
+                    border-radius: 10px; 
+                    padding: 15px; 
+                    margin: 25px 0 25px 0;
+                }
+                .projet-cadre-demande p{
+                    margin: 0;
+                }
+
+            </style>
+
+            <div class="projet-cadre-demande">
+                [(#SESSION{id_auteur}|filtre_verifier_demande{#ID_PROJET}|non)
+
+                    [(#SESSION{id_auteur}|filtre_verifier_etat_dans_projet{#ID_PROJET, -2}|non)
+                        <h3><:osi_projets:rejoindre_le_projet:></h3>
+                        #FORMULAIRE_AJOUTER_AUTEUR_PROJET{#ID_PROJET,#SESSION{id_auteur}}
+                    ][(#SESSION{id_auteur}|filtre_verifier_etat_dans_projet{#ID_PROJET, -2}|oui)
+                        <p><:osi_projets:ban_message:></p>
+                    ]
+                
+                ]
+
+                [(#SESSION{id_auteur}|filtre_verifier_demande{#ID_PROJET}|oui)
+                    <p><:osi_projets:demande_en_cours:></p>
+                ]
+
+                [(#SESSION{id_auteur}|filtre_verifier_demande_echec{#ID_PROJET}|oui)
+                    <p><:osi_projets:demande_refuse:></p>
+                ]
+            </div>
+            
+
+            <div style="border-top: solid 2px; padding-top: 25px;">
+                <INCLURE{fond=inclure/page-projets/1_presentation,id_projet=#ID_PROJET,env} />
+            </div>
+
+        ]
+
+
+
+        <!-- Cas où il appartient au projet -->
+        [(#SESSION{id_auteur}|filtre_verifier_auteur_projet{#ID_PROJET}|oui)
+            <INCLURE{fond=inclure/page-projets-aux,id_projet=#ID_PROJET,env,ajax,cache=0}/>
+        ]
+
+    ][(#SESSION{id_auteur}|non)
+        <:osi_projets:auteur_non_connecte_message:>
+    ]
+
+
+</BOUCLE_contenu>
+
+<!-- /////////////////////////////////////////////////////////////////////////// -->
+
+
+<div class="debug-config-ecriture">
+    <!-- [(#CONFIG{osi_projets/rubriques/#ID_RUBRIQUE}|=={1}) -->
+        <div>
+            <h2>Ajouter un projet</h2>
+            #FORMULAIRE_CREER_UN_PROJET{#SESSION{id_auteur},#ID_RUBRIQUE}
+        </div>
+    <!-- ] -->
+</div>
+
+
+
+<!-- Liste de toutes les sous projets (seulement si on a au moins 1 sous projet) -->
+
+#SET{nombre_de_sous_projets, 0}
+<BOUCLE_sous_projets_verification(RUBRIQUES){id_projet!<1}{id_parent=#ENV{id_rubrique}}>
+    #SET{nombre_de_sous_projets, #GET{nombre_de_sous_projets}|plus{1}}
+</BOUCLE_sous_projets_verification>
+[(#GET{nombre_de_sous_projets}|=={0}|non)
+    <INCLURE{fond=inclure/page-sous-projets,id_rubrique=#ID_RUBRIQUE}/>
+]

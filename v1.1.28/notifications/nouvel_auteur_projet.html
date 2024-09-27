@@ -1,0 +1,11 @@
+
+<:osip_notifications:nouveau_membre:>
+
+<:osip_notifications:bonjour:>,
+
+<:osip_notifications:nouveau_membre_debut:> #ENV{id_projet} <:osip_notifications:nom_projet:> "[(#VAL{'spip_projets'}|get_info_table{'titre','id_projet',#ENV{id_projet}})]".  
+
+<:osip_notifications:nouveau_membre_fin:> [(#ID_AUTEUR|filtre_affichage_nom_auteur)]
+
+<:osip_notifications:signature:>
+

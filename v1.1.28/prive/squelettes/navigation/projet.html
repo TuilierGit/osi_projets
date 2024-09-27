@@ -1,0 +1,52 @@
+[(#REM) 
+
+    Description : 
+        Contenu de la barre de navigation (sur le coté gauche de la page d'édition) d'un projet 
+        
+]
+
+<link rel="stylesheet" href="#CHEMIN{css/projet.css}" type="text/css">
+<link rel="stylesheet" href="#CHEMIN{css/rubrique.css}" type="text/css">
+
+
+<BOUCLE_nav(PROJETS){id_projet}{statut?}{si #ENV{exec}|=={projet}}>
+#BOITE_OUVRIR{'','info'}
+#PIPELINE{boite_infos,#ARRAY{data,'',args,#ARRAY{'type','projet','id',#ENV{id_projet}}}}
+#BOITE_FERMER
+
+#PIPELINE{afficher_config_objet,#ARRAY{args,#ARRAY{type,rubrique,id,#ID_RUBRIQUE},data,''}}
+
+
+<BOUCLE_nav_rubrique(RUBRIQUES){tout}{id_projet=#ID_PROJET}>
+    <div class="rubrique-projet">
+        <div class="rubrique-projet-container top">
+            <div class="image-plugin">
+                <img src="#CHEMIN{prive/themes/spip/images/rubrique-24.png}" alt="Image du plugin">
+            </div>
+            <div class="texte">
+                <p><strong><:osi_projets:rubrique:> ID:</strong> #ID_RUBRIQUE</p>
+                <p><strong><:osi_projets:statut:></strong> #STATUT</p>
+            </div>
+        </div>
+        
+        <div class="rubrique-projet-container bot">
+            [(#ID_PROJET|filtre_voir_la_rubrique)]
+        </div>
+    </div>
+</BOUCLE_nav_rubrique>
+
+
+[(#ID_PROJET|>{0}|oui)    
+    <div class="formulaire_ajout_auteur_projet">
+        <div class="ajax">
+            #FORMULAIRE_AJOUTER_AUTRE_AUTEUR_PROJET{#ID_PROJET}
+        </div>
+    </div>
+]
+
+
+</BOUCLE_nav>
+[(#ENV{exec}|=={rubrique_edit}|oui)<INCLURE{fond=prive/squelettes/navigation/rubrique_edit,env}>]
+<//B_nav>
+
+

@@ -1,0 +1,39 @@
+
+
+
+.participants-projet {
+    position: relative;
+    left: -50%;
+    width: 200%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 20px;
+    z-index: 100;
+}
+
+
+
+.menu-participants-projet {
+    border: solid 2px lightgray;
+    padding: 15px;
+    min-width: 200px;
+}
+
+
+.bouton-page-projet {
+    background: #DCDCEB;
+    color: black;
+    padding: 5% 10% 5% 10%;
+    border-radius: 15px;
+    text-decoration: none;
+}
+
+
+.bouton-page-projet:hover {
+    background: black;
+    color: #DCDCEB;
+}
+
+th.last-col {
+    width: 15px;
+}

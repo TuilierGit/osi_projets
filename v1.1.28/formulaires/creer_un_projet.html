@@ -1,0 +1,56 @@
+[(#REM) 
+    
+    Description : 
+        Formulaire pour pouvoir créer un projet sur le front 
+
+
+    Paramètres d'environnement : 
+        - id_rubrique (non obligatoire) : si définie alors le projet aura pour parent id_rubrique
+
+]
+
+<style>
+    .formulaire_spip.formulaire_creer_un_projet ul {
+        padding: 0;
+    }
+</style>
+
+<div class="formulaire_spip formulaire_#FORM">
+    
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+    [(#ENV{editable}|oui)
+    <form name="formulaire_#FORM" action="#ENV{action}|parametre_url{modele,projet}" method="post">
+        <div>
+            #ACTION_FORMULAIRE{#ENV{action}}
+            <ul>
+
+                <input type="hidden" name="modele" value="projet" /> 
+
+                <li class="editer_titre obligatoire[ (#ENV**{erreurs}|table_valeur{message}|oui)erreur]">	
+                    <label for="champ_titre"><:osi_projets:projet_titre:></label>
+                    [<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{message})</span>]
+                    <input type="text" id="champ_titre" name="titre" value="" />
+                    [(#REM) <!-- <input type="text" id="champ_titre" name="titre" value="[(#ENV{titre})]" /> --> ]
+
+                </li>
+
+                [(#REM)
+                    <li class="editer_texte obligatoire[ (#ENV**{erreurs}|table_valeur{message}|oui)erreur]">	
+                        <label for="champ_texte"><:osi_projets:projet_titre:></label>
+                        [<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{message})</span>]
+                        <input type="text" id="champ_texte" name="texte" value="[(#ENV{texte})]" />
+                    </li>
+                ]
+
+
+            </ul>
+            <p class="boutons">
+                <input type="submit" name="ok" value="<:osi_projets:projet_creer:>" />
+            </p>
+        </div>
+    </form>
+    ]
+</div>
+

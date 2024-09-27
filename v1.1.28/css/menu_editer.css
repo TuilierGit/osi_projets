@@ -1,0 +1,32 @@
+span.icone.s24.verticale.right.projet {
+    position: relative;
+    top: -40px;
+    left: 25px;
+}
+
+.onglets_simple.onglets_simple--svp.onglets_projets {
+    margin: 30px 0 60px 0;
+    width:100%;
+}
+
+
+.onglet-table-projet {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 0;
+}
+
+
+
+/* Tableau des projets */
+
+
+.liste-objets.projets {
+    margin: 4em 0 0 0;
+    width: 130%;
+    position: relative;
+    left: -15%;
+}
+

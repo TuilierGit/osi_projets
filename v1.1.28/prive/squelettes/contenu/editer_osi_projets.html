@@ -1,0 +1,155 @@
+[(#REM) 
+
+    Description : 
+		Contenu du menu "EDITION" du plugin OSI-projets
+        
+]
+
+<link rel="stylesheet" href="#CHEMIN{css/menu_editer.css}" type="text/css">
+
+
+<h1 class="grostitre"><:osi_projets:titre_tous_les_projets:></h1>
+
+
+<!-- Créer un projet -->
+[(#AUTORISER{creer,projet})
+	[(#URL_ECRIRE{rubrique_edit}
+		|parametre_url{id_parent,[(#VAL{'osi_projets/id_chemin_rubrique'}|filtre_get_configuration)]}
+		|parametre_url{modele,projet}
+		|parametre_url{new,oui}
+		|parametre_url{statut_tmp,prepa}
+		|icone_verticale{<:osi_projets:creer_projet:>,projet,new,right})]
+]
+
+
+
+
+<!-- Actualiser les projets -->
+[(#BOUTON_ACTION{
+	'Parcourir les projets et mettre à jour',
+	#URL_ACTION_AUTEUR{parcourir_rubriques_et_mettre_a_jour, '', #SELF},
+	'bouton_class', 
+	'Êtes-vous sûr de vouloir parcourir les projets et mettre à jour les rubriques ?',
+	'Parcourir et mettre à jour',
+	''
+})]
+
+
+<!-- Les onglets -->
+
+#SET{defaut,actifs}
+[(#ENV{onglet}|oui) #SET{onglet, #ENV{onglet}}]
+[(#ENV{onglet}|non) #SET{onglet, #GET{defaut}}]
+
+<div class='onglets_simple onglets_simple--svp onglets_projets'>	
+	<ul>
+		<li>[(#SELF|parametre_url{onglet,'actifs'}|lien_ou_expose{<:osi_projets:titre_projets_actifs:>,#GET{onglet}|=={actifs},ajax})]</li>
+
+		<li>[(#SELF|parametre_url{onglet,'inactifs'}|lien_ou_expose{<:osi_projets:titre_projets_inactifs:>,#GET{onglet}|=={inactifs},ajax})]</li>
+
+		<li>[(#SELF|parametre_url{onglet,'projets'}|lien_ou_expose{<:osi_projets:titre_tous_les_projets:>,#GET{onglet}|=={projets},ajax})]</li>
+
+		<li>[(#SELF|parametre_url{onglet,'perso'}|lien_ou_expose{<:osi_projets:titre_tous_mes_projets:>,#GET{onglet}|=={perso},ajax})]</li>
+
+		<li>[(#SELF|parametre_url{onglet,'infos'}|lien_ou_expose{<:osi_projets:titre_infos_projets:>,#GET{onglet}|=={infos},ajax})]</li>
+	</ul>
+</div>
+
+
+
+<!-- Projets actifs -->
+
+[(#GET{onglet}|=={'actifs'}|oui)
+	<INCLURE{fond=prive/objets/liste/pr_rubriques,
+		statut="publie",
+		id_auteur=#ENV{id_auteur,''},
+		nb=30,
+		titre=<:osi_projets:titre_tous_les_projets:>,
+		sinon=<:osi_projets:aucun_projet:>,
+		env,
+		ajax}>
+]
+
+
+<!-- Projets inactifs -->
+[(#GET{onglet}|=={'inactifs'}|oui)
+
+	<INCLURE{fond=prive/objets/liste/pr_rubriques,
+		statut="prepa",
+		id_auteur=#ENV{id_auteur,''},
+		nb=30,
+		titre=<:osi_projets:titre_tous_les_projets:>,
+		sinon=<:osi_projets:aucun_projet:>,
+		env,
+		ajax}>
+	
+]
+
+
+
+<!-- Tous les projets -->
+[(#GET{onglet}|=={'projets'}|oui)
+
+	<INCLURE{fond=prive/objets/liste/pr_rubriques,
+		statut=#GET{statuts},
+		id_auteur=#ENV{id_auteur,''},
+		nb=30,
+		titre=<:osi_projets:titre_tous_les_projets:>,
+		sinon=<:osi_projets:aucun_projet:>,
+		env,
+		ajax}>
+	
+]
+
+
+
+<!-- Tous mes projets -->
+[(#GET{onglet}|=={'perso'}|oui)
+
+	<INCLURE{fond=prive/objets/liste/pr_rubriques_etat,
+		statut=#GET{statuts},
+		id_auteur=#SESSION{id_auteur},
+		etat=3,
+		nb=30,
+		titre=<:osi_projets:titre_rubriques_createur:>,
+		sinon=<:osi_projets:aucun_projet:>,
+		env,
+		ajax}>
+
+	<INCLURE{fond=prive/objets/liste/pr_rubriques_etat,
+		statut=#GET{statuts},
+		id_auteur=#SESSION{id_auteur},
+		etat=2,
+		nb=30,
+		titre=<:osi_projets:titre_rubriques_administrateur:>,
+		sinon=<:osi_projets:aucun_projet:>,
+		env,
+		ajax}>
+
+	<INCLURE{fond=prive/objets/liste/pr_rubriques_etat,
+		statut=#GET{statuts},
+		id_auteur=#SESSION{id_auteur},
+		etat=1,
+		nb=30,
+		titre=<:osi_projets:titre_rubriques_membre:>,
+		sinon=<:osi_projets:aucun_projet:>,
+		env,
+		ajax}>
+]
+
+
+
+
+<!-- Infos projets -->
+[(#GET{onglet}|=={'infos'}|oui)
+
+	<INCLURE{fond=prive/objets/liste/table_projets,
+		statut=#GET{statuts},
+		nb=30,
+		titre=<:osi_projets:titre_tous_les_projets:>,
+		sinon=<:osi_projets:aucun_projet:>,
+		env,
+		ajax}>
+
+]
+

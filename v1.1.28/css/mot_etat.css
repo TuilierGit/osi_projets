@@ -1,0 +1,35 @@
+.pr_mots_item{
+    display: flex;
+    flex-direction: column;
+    border: solid 1px lightgray;
+
+}
+
+
+.pr_mots_item_top{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    padding: 5px 15px 5px 15px;
+}
+
+.pr_mots_item_top.left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.pr_mots_item_top.right {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

@@ -1,0 +1,7 @@
+
+<BOUCLE_projets(spip_projets){par num titre}>
+    <BOUCLE_projets_rubriques(RUBRIQUES){id_rubrique==#ID_RUBRIQUE}{id_parent==#ENV{id_rubrique}}>
+        <INCLURE{fond=inclure/divers/btn_projet,id_projet} />
+    </BOUCLE_projets_rubriques>
+</BOUCLE_projets>
+

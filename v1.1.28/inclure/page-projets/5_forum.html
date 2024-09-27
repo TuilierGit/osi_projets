@@ -1,0 +1,181 @@
+
+
+<link rel="stylesheet" href="#CHEMIN{css/page-projets.css}" type="text/css" media="all" />
+
+
+<style>
+    .osip-menu-nouveau-sujet{
+        display: none;
+    }
+
+    .osip-menu-nouveau-message{
+        display: none;
+    }
+</style>
+
+<div class="page-forum">
+
+<BOUCLE_rubrique_de_projet(RUBRIQUES){id_projet=#ENV{id_projet}}>
+
+    <div class="forum-container-header">
+        <!-- <h3><:osi_projets:forum_projet:></h3> -->
+
+        <button onclick="$('#osip-menu-nouveau-sujet-#ID_PROJET').toggle();"><:osi_projets:forum_ajouter_sujet:></button>
+
+        <div id="osip-menu-nouveau-sujet-#ID_PROJET" class="osip-menu-nouveau-sujet add-message">
+            #FORMULAIRE_FORUM
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        // Récupérer l'ID du sujet sélectionné depuis l'URL
+        var sujetSelectionne = '[(#ENV{sujet_selectionne}|sinon{null})]';
+        
+        // Si un sujet est sélectionné, l'afficher
+        if (sujetSelectionne) {
+            afficherSujet(sujetSelectionne);
+        }
+    });
+
+    function afficherSujet(idForum) {
+        // Masquer tous les sujets
+        document.querySelectorAll('.menu-sujet').forEach(function(element) {
+            element.style.display = 'none';
+        });
+        
+        // Afficher le sujet sélectionné
+        var sujetElement = document.getElementById('menu-sujet-' + idForum);
+        if (sujetElement) {
+            sujetElement.style.display = 'block';
+        }
+    }
+
+    </script>
+    
+
+    <style>
+        .message-top{
+            display: flex; 
+            flex-direction: row; 
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .message-top-left{
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .message-cadre-interne{
+            padding: 5px 15px 5px 15px; 
+            border-radius: 5px; 
+            border: solid 1px lightgray;
+        }
+
+        .cadre-seul {
+            margin: 10px 0 15px 0;
+        }
+    </style>
+
+    <div class="forum-container">
+
+        <div class="forum-left">
+
+            <div class="liste-messages">
+                #SET{count, 0}
+                <BOUCLE_sujets_de_discussion(FORUMS){tout}{objet=rubrique}{id_objet=#ID_RUBRIQUE}{id_parent=0}{par date}{inverse}>
+                    #SET{count, #GET{count}|plus{1}}
+                    <div class="message" >
+
+                        <div class="message-top">
+                            <div class="message-top-left">
+                                <div><:osi_projets:auteur:> : 
+                                    <a href="[(#URL_AUTEUR{#ID_AUTEUR})]">
+                                        #AUTEUR
+                                    </a>
+                                </div>
+                                <div><:osi_projets:date:> : [(#DATE|affdate)]</div>
+                            </div>
+                            <div>
+                                <a href="[(#SELF|parametre_url{sujet_selectionne,#ID_FORUM})]">
+                                    <button><:osi_projets:forum_voir_sujet:></button>
+                                </a>
+                                <!-- <button onclick="afficherSujet('#ID_FORUM');"><:osi_projets:forum_voir_sujet:></button> -->
+                            </div>
+                        </div>
+                        <div class="message-cadre-interne">
+                            <strong>#TITRE</strong>
+                        </div>
+
+                        
+                    </div>
+                </BOUCLE_sujets_de_discussion>
+                [(#GET{count}|=={0}|oui)
+                    <div class="message" >
+                        <div class="message-top">
+                            <strong class="osip-center"><:osi_projets:forum_aucun_sujet:></strong>
+                        </div>
+                    </div>
+                ]
+
+            </div>
+
+        </div>
+
+
+        <div class="forum-right ajax">
+
+            <style>
+                .menu-sujet{
+                    display: none;
+                }
+            </style>
+
+            <BOUCLE_sujets_contenu(FORUMS){objet=rubrique}{id_objet=#ID_RUBRIQUE}{par date}{inverse}>
+
+                <div id="menu-sujet-#ID_FORUM" class="menu-sujet message">
+                
+                    <div class="osip-forum-sujet-header">
+                        <div class="osip-forum-sujet-header-left">
+                            <BOUCLE_compte_sujets(FORUMS){tout}{objet=rubrique}{id_objet=#ID_RUBRIQUE}{id_thread=#ID_THREAD}> </BOUCLE_compte_sujets>
+                            <p>#PUCE #TOTAL_BOUCLE <:osi_projets:forum_messages_du_sujet:></p>
+                            </B_compte_sujets>
+                            <p>#PUCE Auteur : 
+                                <a href="[(#URL_AUTEUR{#ID_AUTEUR})]">
+                                    #AUTEUR
+                                </a>
+                            </p>
+                        </div>
+                        
+                        <div class="osip-forum-sujet-header-right">
+                            <button onclick="$('#osip-menu-nouveau-sujet-#ID_PROJET-#ID_THREAD').toggle();"><:osi_projets:forum_poster_message:></button>
+                        </div>
+                    </div>
+                    <div class="message-cadre-interne cadre-seul">
+                        <strong>#TITRE</strong>
+                    </div>
+
+                    <div id="osip-menu-nouveau-sujet-#ID_PROJET-#ID_THREAD" class="osip-menu-nouveau-message add-message">
+                        <div >
+
+                            #FORMULAIRE_FORUM{id_forum=#ID_FORUM}
+                        </div>
+                    </div>
+
+                    <!-- <div>
+                        <p>Sujet selectionné : #ID_FORUM</p>
+                    </div> -->
+                    <INCLURE{fond=inclure/divers/forum_projet-aux,objet=rubrique,id_objet=#ID_RUBRIQUE,id_thread=#ID_THREAD,env,cs}/>
+                </div>
+            </BOUCLE_sujets_contenu>
+        </div>
+            
+    </div>
+
+</BOUCLE_rubrique_de_projet>
+
+
+</div>
+

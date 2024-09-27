@@ -1,0 +1,45 @@
+[(#REM) 
+
+    Description : 
+	    Contenu du menu "CONFIGURATION" du plugin OSI-projets
+        
+]
+
+<link rel="stylesheet" href="#CHEMIN{css/menu_configuration.css}" type="text/css">
+
+<h1 class="grostitre"><:osip_configurations:titre_toutes_les_configurations:></h1>
+
+<!-- Les onglets -->
+
+#SET{defaut,option}
+[(#ENV{onglet}|oui) #SET{onglet, #ENV{onglet}}]
+[(#ENV{onglet}|non) #SET{onglet, #GET{defaut}}]
+
+<div class='onglets_simple onglets_simple--svp onglets_projets'>	
+	<ul>
+		<li>[(#SELF|parametre_url{onglet,'option'}|lien_ou_expose{<:osip_configurations:titre_configuration_option:>,#GET{onglet}|=={option},ajax})]</li>
+
+		<li>[(#SELF|parametre_url{onglet,'personnalisation'}|lien_ou_expose{<:osip_configurations:titre_configuration_personnalisation:>,#GET{onglet}|=={personnalisation},ajax})]</li>
+
+        <li>[(#SELF|parametre_url{onglet,'notification'}|lien_ou_expose{<:osip_configurations:titre_configuration_notification:>,#GET{onglet}|=={notification},ajax})]</li>
+
+	</ul>
+</div>
+
+
+<div class="configuration-projets">
+
+    [(#GET{onglet}|=={'option'}|oui)
+        <INCLURE{fond=prive/squelettes/contenu/configurer_osi_projets/1_options,ajax,env} />
+    ]
+
+    [(#GET{onglet}|=={'personnalisation'}|oui)
+        <INCLURE{fond=prive/squelettes/contenu/configurer_osi_projets/2_personnalisation,ajax,env} />
+    ]
+    
+    [(#GET{onglet}|=={'notification'}|oui)
+        <INCLURE{fond=prive/squelettes/contenu/configurer_osi_projets/3_notification,ajax,env} />
+    ]
+
+</div>
+

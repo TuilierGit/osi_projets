@@ -1,0 +1,32 @@
+[(#REM) 
+
+    Description : 
+		Contenu de la page des participants au projet accessible via le bouton de la page d'édition d'un projet du coté back-office.
+        
+]
+
+
+<link rel="stylesheet" href="#CHEMIN{css/projet-membres.css}" type="text/css">
+
+<h1 class="grostitre"><:osi_projets:titre_gestion_membres:></h1>
+
+
+<div class="participants-projet">
+
+    <div class="menu-participants-projet">
+        <h3><:osi_projets:titre_gestion_membres:></h3>
+        <div>
+            <a 
+                href="#URL_ECRIRE{projet, id_projet=#ID_PROJET}" 
+                class="bouton-page-projet"
+            >
+                <:osi_projets:retourner_a_la_page_projet:>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <INCLURE{fond=inclure/divers/tableau-participants,id_projet=#ID_PROJET,identifiant=1,back=1} />
+    </div>
+
+</div>

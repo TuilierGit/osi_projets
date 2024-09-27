@@ -1,0 +1,84 @@
+
+<style>
+    .menu-modification{
+        display: none;
+    }
+
+    .menu-modification .editer.editer_parent{
+        display: none;
+    }
+
+    .menu-modification .editer.editer_fichier{
+        display: none;
+    }
+
+
+    .menu-modification .editer.editer_apercu {
+        display: none;
+    }
+
+    .menu-modification .editer.editer_infos {
+        display: none;
+    }
+
+    .menu-modification .editer.editer_credits {
+        display: none;
+    }
+
+</style>
+
+
+<style>
+    .un_document {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        border-bottom: 1px solid;
+        align-items: center;
+        margin: 10px 0 38px 0;
+    }
+
+    .un_document a {
+        max-width: 200px;
+    }
+
+</style>
+
+
+<BOUCLE_rubrique(RUBRIQUES){id_projet=#ENV{id_projet}}>
+    <ul>
+        <BOUCLE_documents(DOCUMENTS){id_rubrique}{par date}{inverse}>
+            <li style="display: flex; flex-direction: row; gap: 5px;">
+                <div class="un_document">
+                        <!-- <a href="#URL_DOCUMENT" title="[(#TITRE|sinon{#FICHIER})]" style="max-width: 200px;"> -->
+                            [(#LOGO_DOCUMENT|#URL_DOCUMENT)]
+                        <!-- </a> -->
+                        <div>#TITRE</div>
+                        <small>(#TYPE_DOCUMENT - [(#TAILLE|taille_en_octets)])</small>
+                    
+                    <div>
+                        #DESCRIPTIF
+                    </div>
+                </div>
+                
+
+            </li>
+
+
+                [(#ENV{gestion}|=={1}|oui)
+                    <div>
+                        <button onclick="$('#menu-modification-#ID_DOCUMENT').toggle();"><:osi_projets:modification:></button>
+                    </div>
+                    <div id="menu-modification-#ID_DOCUMENT" class="menu-modification">
+                        <div class="ajax">
+                            #FORMULAIRE_EDITER_DOCUMENT{#ID_DOCUMENT}
+                        </div>
+                    </div>
+                ]
+
+        </BOUCLE_documents>
+            <div><:osi_projets:aucun_documents:></div>
+        <//B_documents>
+    </ul>
+</BOUCLE_rubrique>

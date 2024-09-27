@@ -1,0 +1,29 @@
+<div style="display: flex;
+    justify-content: center;">
+    <img class="spip_logo spip_logos" alt="" src="[(#LOGO_SITE_SPIP|extraire_attribut{src})]" width="250" height="250">
+</div>
+
+<h2><:osip_notifications:role_demande:></h2>
+
+<p>
+    <:osip_notifications:bonjour:>,
+</p>
+<p>
+    <:osip_notifications:role_demande_debut:> "[(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ENV{id_role}})]" <:osip_notifications:pour_le_projet:> #ENV{id_projet} <:osip_notifications:nom_projet:> "[(#VAL{'spip_projets'}|get_info_table{'titre','id_projet',#ENV{id_projet}})]".  
+</p>
+[(#VALEUR|=={1}|oui)
+    <p>
+        <:osip_notifications:role_demande_valide:> "[(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ENV{id_role}})]" <:osip_notifications:pour_ce_projet:>. 
+    </p>
+]
+[(#VALEUR|=={1}|non)
+    <p>
+        <:osip_notifications:role_demande_refuse:> "[(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ENV{id_role}})]".
+    </p>
+]
+
+<p>
+    <:osip_notifications:signature:>
+</p>
+
+

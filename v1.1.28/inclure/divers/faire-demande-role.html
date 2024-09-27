@@ -1,0 +1,80 @@
+
+[(#REM) On récupère le projet]
+
+#CACHE{0}
+
+<BOUCLE_projet(spip_projets){id_projet?}>
+    [(#REM) On récupère la relation entre le projet et l'auteur]
+    <BOUCLE_liste_demandes(spip_auteur_projet) {id_auteur?} {id_auteur==#SESSION{id_auteur}} {id_projet?} {id_projet==#ID_PROJET}>
+            <div class="liste-demande-role-projet">
+
+                #SET{role_id_projet, #ID_PROJET}
+                
+                #SET{count, 0}
+                <B_osip_roles>
+
+                    
+                    [(#SESSION{id_auteur}|filtre_verifier_auteur_projet{#GET{role_id_projet}}|oui)
+                        [(#ENV{titre}|oui)
+                            <h3>#ENV{titre}</h3>
+                        ]
+                    ]
+
+
+                <BOUCLE_osip_roles(spip_osip_roles){etat=1}>
+
+                [(#ENV{demande}|=={0}|oui)
+                    [(#ID_ROLE|get_info_role{#GET{role_id_projet},#SESSION{id_auteur}, 'demande'}|=={0}|oui)
+                        [(#ID_ROLE|get_info_role{#GET{role_id_projet},#SESSION{id_auteur}, 'valeur'}|=={0}|oui)
+                            
+                            [(#SESSION{id_auteur}|filtre_verifier_conditions_role{#ID_ROLE}|oui)
+                                #SET{count, #GET{count}|plus{1}}
+                                <div class="liste-demande-role-projet-item">
+                                    #FORMULAIRE_DEMANDER_UN_ROLE{#GET{role_id_projet},#SESSION{id_auteur},#ID_ROLE}
+                                </div>
+                            ]
+                            [(#REM)
+                                <!-- [(#SESSION{id_auteur}|filtre_verifier_conditions_role{#ID_ROLE}|non)
+                                    <div class="liste-demande-role-projet-item">
+                                        <p><:osi_projets:conditions_insuffisantes:> #TITRE</p>
+                                    </div>        
+                                ] -->
+                            ]
+                        ]
+                    ] 
+                ]
+
+                [(#ENV{demande}|=={1}|oui)
+                    [(#ID_ROLE|get_info_role{#GET{role_id_projet},#SESSION{id_auteur}, 'demande'}|=={1}|oui)
+                        [(#ID_ROLE|get_info_role{#GET{role_id_projet},#SESSION{id_auteur}, 'valeur'}|=={0}|oui)
+                            #SET{count, #GET{count}|plus{1}}
+                            <div class="liste-demande-role-projet-item">
+                                <div class="liste-demande-role-projet-item-box">
+                                    #TITRE
+                                </div>
+                            </div>
+                        ]
+                    ] 
+
+                ]
+
+                </BOUCLE_osip_roles>
+
+                [(#GET{count}|=={0}|oui)
+                    <div class="message" >
+                        <div class="message-top">
+                            [(#ENV{demande}|=={0}|oui)
+                                <strong class="osip-center"><:osi_projets:aucun_role_disponible:></strong>
+                            ]
+                            [(#ENV{demande}|=={1}|oui)
+                                <strong class="osip-center"><:osi_projets:aucune_demande:></strong>
+                            ]
+                        </div>
+                    </div>
+                ]
+                
+            </div>
+    </BOUCLE_liste_demandes>
+</BOUCLE_projet>
+
+

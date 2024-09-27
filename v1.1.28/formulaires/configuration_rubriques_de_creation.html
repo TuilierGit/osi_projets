@@ -1,0 +1,49 @@
+[(#REM) 
+    
+    Description : 
+        Formulaire pour lister toutes les rubriques qui peuvent créer des projets depuis le front
+
+]
+
+
+<form name="formulaire_#FORM" action="#ENV{action}" method="post">
+    #ACTION_FORMULAIRE{#ENV{action}}
+
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+
+    <fieldset>
+
+        <h3>Rubriques non sélectionnées</h3>
+        <select id="rubriques_g1" name="rubriques_g1" [(#REM)multiple="multiple"] size="20">
+            <BOUCLE_rubriques_non_selectionnees(RUBRIQUES) {tout} {par num id_rubrique}>
+                [(#CONFIG{osi_projets/rubriques/#ID_RUBRIQUE}|=={0})
+                    <option value="#ID_RUBRIQUE">#ID_RUBRIQUE - #TITRE</option>
+                ][(#CONFIG{osi_projets/rubriques/#ID_RUBRIQUE}|!={0})
+                    [(#CONFIG{osi_projets/rubriques/#ID_RUBRIQUE}|non)
+                        <option value="#ID_RUBRIQUE">#ID_RUBRIQUE - #TITRE</option>
+                    ]
+                ]
+
+                
+
+            </BOUCLE_rubriques_non_selectionnees>
+        </select>
+
+        <h3>Rubriques sélectionnées</h3>
+        <select id="rubriques_g2" name="rubriques_g2" [(#REM)multiple="multiple"] size="20">
+            <BOUCLE_rubriques_selectionnees(RUBRIQUES) {tout} {par num id_rubrique}>
+                [(#CONFIG{osi_projets/rubriques/#ID_RUBRIQUE}|=={1})
+                    <option value="#ID_RUBRIQUE">#ID_RUBRIQUE - #TITRE</option>
+                ]
+            </BOUCLE_rubriques_selectionnees>
+        </select>
+
+    </fieldset>
+    <div>
+        <input type="submit" name="enregistrer" value="Enregistrer">
+    </div>
+</form>
+
+

@@ -1,0 +1,26 @@
+
+[<style type="text/css">(#INCLURE{#CHEMIN{css/styles_projets.css}}|compacte{css})</style>]
+
+
+<div class="liste-objets mes_projets">
+    <BOUCLE_auteur_projet(spip_auteur_projet) {id_auteur?} {id_auteur==#ENV{id_auteur}} {etat!<1}>
+        <BOUCLE_projets(spip_projets) {id_projet==#ID_PROJET}>
+            <BOUCLE_rubriques(RUBRIQUES) {tout}{id_rubrique==#ID_RUBRIQUE}{id_projet!<1}>
+                <div class="un-projet">
+                    <section class="tiles">
+
+                    <BOUCLE_rubrique(RUBRIQUES){tout}{id_rubrique}><article class="styler#ID_RUBRIQUE">
+                        <span class="image">
+                            [(#LOGO_RUBRIQUE|image_recadre{1:1,-,focus}|image_reduire{360,360}|vider_attribut{class})]
+                        </span>
+                        <a href="#URL_RUBRIQUE">
+                            <h2>#TITRE</h2>
+                        </a>
+                    </article></BOUCLE_rubrique>
+                    </section>
+                    
+                </div>
+            </BOUCLE_rubriques>
+        </BOUCLE_projets>
+    </BOUCLE_auteur_projet>
+</div>

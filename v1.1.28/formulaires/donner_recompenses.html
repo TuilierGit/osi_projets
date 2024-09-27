@@ -1,0 +1,34 @@
+
+
+<link rel="stylesheet" href="#CHEMIN{css/form.css}" type="text/css" media="all" />
+
+
+<form method="post" action="#ENV{action}">
+    
+        
+    #ACTION_FORMULAIRE{#ENV{action}}
+    <input type="hidden" name="id_projet" value="#ENV{id_projet}" />
+    <div class="menu-recompenses-form">
+        <label for="id_auteur"><:osi_projets:selectionner_auteur:></label>
+        <select name="id_auteur" id="id_auteur">
+            <option value=""><:osi_projets:faire_choix:></option>
+            <BOUCLE_auteur_selection(spip_auteur_projet){id_projet=#ENV{id_projet}}>
+                <option value="#ID_AUTEUR">
+                    [(#ID_AUTEUR|filtre_nom_auteur)]
+                </option>
+            </BOUCLE_auteur_selection>
+        </select>
+        
+        <div>
+            <input type="submit" name="valider" value="<:osi_projets:titre_donner_recompenses:>" class="bouton">
+        </div>
+    </div>
+    
+    
+    [(#ENV**{message_ok}|oui)
+        <p class="success-message">[(#ENV**{message_ok})]</p>
+    ]
+    [(#ENV**{message_erreur}|oui)
+        <p class="error-message">[(#ENV**{message_erreur})]</p>
+    ]
+</form>

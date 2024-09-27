@@ -1,0 +1,66 @@
+
+<!-- Les onglets -->
+
+#SET{defaut_admin,explication}
+[(#ENV{onglet_admin}|oui) #SET{onglet_admin, #ENV{onglet_admin}}]
+[(#ENV{onglet_admin}|non) #SET{onglet_admin, #GET{defaut_admin}}]
+
+
+<div class='onglets_simple onglets_simple--svp onglets_projets_front'>	
+    <ul>
+        <li>[(#SELF|parametre_url{onglet_admin,'explication'}|lien_ou_expose{<:osi_projets:gestion_titre_explication:>,#GET{onglet_admin}|=={explication},ajax})]</li>
+
+        <li>[(#SELF|parametre_url{onglet_admin,'demandes'}|lien_ou_expose{<:osi_projets:gestion_titre_demandes:>,#GET{onglet_admin}|=={demandes},ajax})]</li>
+
+        <li>[(#SELF|parametre_url{onglet_admin,'participants'}|lien_ou_expose{<:osi_projets:gestion_titre_participants:>,#GET{onglet_admin}|=={participants},ajax})]</li>
+
+        <li>[(#SELF|parametre_url{onglet_admin,'description'}|lien_ou_expose{<:osi_projets:gestion_titre_description:>,#GET{onglet_admin}|=={description},ajax})]</li>
+
+        <li>[(#SELF|parametre_url{onglet_admin,'mots_cles'}|lien_ou_expose{<:osi_projets:gestion_titre_mots_cles:>,#GET{onglet_admin}|=={mots_cles},ajax})]</li>
+
+    </ul>
+</div>
+
+
+[(#GET{onglet_admin}|=={'explication'}|oui)
+    <div>
+        <:osi_projets:menu_gestion_explication:>
+    </div>
+]
+
+
+[(#GET{onglet_admin}|=={'demandes'}|oui)
+    <div style="overflow: scroll;">
+        <INCLURE{fond=inclure/divers/gestion_des_demandes,id_projet=#ID_PROJET,ajax,env} />
+    </div>
+]
+
+[(#GET{onglet_admin}|=={'participants'}|oui)
+    <div style="overflow: scroll;">
+        <h3><:osi_projets:liste_participants:></h3>
+        #OSIP_LISTE_AUTEURS{#ID_PROJET,env}
+    </div>
+]
+
+[(#GET{onglet_admin}|=={'description'}|oui)
+    <div class="gestion-admin-description">
+
+        [(#VAL{'osi_projets/creer_sous_projet_int'}|filtre_get_configuration|=={1}|oui)
+            <div>
+                <h3><:osi_projets:creer_sous_projet:></h3>
+                #FORMULAIRE_CREER_UN_PROJET{#SESSION{id_auteur},#ID_RUBRIQUE}
+            </div>
+        ]
+        
+
+        <INCLURE{fond=inclure/divers/gestion_description,id_projet=#ID_PROJET,ajax,env} />
+    </div>
+]
+
+[(#GET{onglet_admin}|=={'mots_cles'}|oui)
+    <div>
+        <INCLURE{fond=inclure/divers/gestion_des_mots_cles,id_projet=#ID_PROJET,ajax,env} />
+    </div>
+]
+
+

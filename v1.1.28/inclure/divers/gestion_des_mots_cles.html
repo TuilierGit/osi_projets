@@ -1,0 +1,39 @@
+
+#CACHE{0}
+
+<link rel="stylesheet" href="#CHEMIN{css/ajouter_mots.css}" type="text/css" media="all" />
+
+<BOUCLE_mots_pour_projet(spip_projets){id_projet=#ENV{id_projet}}>
+    
+
+        <div class="ajax ajouter_mots_projet">
+            #FORMULAIRE_EDITER_LIENS{mots, projet, #ID_PROJET, ajax}
+        </div>
+
+        <div class="test">
+            <div class="1">
+                [(#INCLURE{fond=prive/objets/liste/pr_mots, 
+                    statut=#ENV{statut}, 
+                    id_objet=#ID_PROJET, 
+                    nom_objet=projet,
+                    nb=30, 
+                    env=#ENV{env}, 
+                    ajax=oui})]  
+            </div>
+        </div>
+    
+
+    [(#REM)
+        <div class="2">
+            <p>#ID_PROJET</p>
+            #OSIP_MOTS{#ID_PROJET}
+        </div>
+    ]
+
+
+
+
+    
+
+</BOUCLE_mots_pour_projet>
+

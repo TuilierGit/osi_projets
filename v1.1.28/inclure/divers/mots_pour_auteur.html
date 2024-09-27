@@ -1,0 +1,16 @@
+
+<link rel="stylesheet" href="#CHEMIN{css/ajouter_mots.css}" type="text/css" media="all" />
+
+<script src="#CHEMIN{javascript/mots_osi_projets_invisibles.js}"></script>
+
+<div class="ajax ajouter_mots_projet">
+    #FORMULAIRE_EDITER_LIENS{mots, auteur, #ID_AUTEUR, ajax}
+</div>
+
+<B_mots_pour_auteur>
+    <ul class="actions">
+      <BOUCLE_mots_pour_auteur(MOTS){id_auteur}{par num titre}>
+        <li><a href="#URL_MOT" class="button small">#TITRE</a></li>
+      </BOUCLE_mots_pour_auteur>
+    </ul>
+</B_mots_pour_auteur>

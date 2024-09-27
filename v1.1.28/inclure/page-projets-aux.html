@@ -1,0 +1,142 @@
+
+
+[(#REM) 
+
+    Remarque : 
+        Ne doit pas être utilisé directement. Il faut passer par le fichier "page-projets.html"
+
+]
+
+
+<link rel="stylesheet" href="#CHEMIN{css/page-projets.css}" type="text/css" media="all" />
+
+
+<style>
+
+
+@media (max-width: 550px) {
+    .onglets_projets_front ul{
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+}
+
+    .onglets_projets_front ul li {
+        text-align: center;
+    }
+
+
+    .onglets_projets_front ul{
+        display: flex;
+        padding: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .onglets_projets_front ul li{
+        list-style-type:none;
+    }
+
+
+</style>
+
+
+<!-- Les onglets -->
+
+#SET{defaut,presentation}
+[(#ENV{onglet}|oui) #SET{onglet, #ENV{onglet}}]
+[(#ENV{onglet}|non) #SET{onglet, #GET{defaut}}]
+
+<div class='onglets_simple onglets_simple--svp onglets_projets_front'>	
+	<ul>
+		<li>
+            [(#SELF|parametre_url{onglet,'presentation'}|lien_ou_expose{<:osi_projets:exemple_titre_presentation:>,#GET{onglet}|=={presentation},ajax})]
+        </li>
+
+        <li>
+            [(#SELF|parametre_url{onglet,'roles'}|lien_ou_expose{<:osi_projets:exemple_titre_roles:>,#GET{onglet}|=={roles},ajax})]
+        </li>
+
+        <li>
+            [(#SELF|parametre_url{onglet,'membres'}|lien_ou_expose{<:osi_projets:exemple_titre_membres:>,#GET{onglet}|=={membres},ajax})]
+        </li>
+
+        <li>
+            [(#SELF|parametre_url{onglet,'mots_cles'}|lien_ou_expose{<:osi_projets:exemple_titre_mots_cles:>,#GET{onglet}|=={mots_cles},ajax})]
+        </li>
+
+        <li>
+            [(#SELF|parametre_url{onglet,'forum'}|lien_ou_expose{<:osi_projets:exemple_titre_forum:>,#GET{onglet}|=={forum},ajax})]
+        </li>
+
+        <li>
+            [(#SELF|parametre_url{onglet,'gestion'}|lien_ou_expose{<:osi_projets:exemple_titre_gestion:>,#GET{onglet}|=={gestion},ajax})]
+        </li>
+        
+	</ul>
+</div>
+
+
+
+<div>
+
+    [(#GET{onglet}|=={'presentation'}|oui)
+        <div>
+            <INCLURE{fond=inclure/page-projets/1_presentation,id_projet=#ID_PROJET,env} />
+        </div>
+
+    ]
+
+
+    [(#GET{onglet}|=={'roles'}|oui)
+        <div>
+            <!-- <h2><:osi_projets:exemple_titre_roles:></h2> -->
+
+            <INCLURE{fond=inclure/page-projets/2_roles,id_projet=#ID_PROJET,env} />
+        </div>
+    ]
+
+
+
+    [(#GET{onglet}|=={'membres'}|oui)
+        <div>
+            <!-- <h2><:osi_projets:exemple_titre_membres:></h2> -->
+
+            <INCLURE{fond=inclure/page-projets/3_membres,id_projet=#ID_PROJET,env} />
+        </div>
+    ]
+
+
+    [(#GET{onglet}|=={'mots_cles'}|oui)
+        <div>
+            <!-- <h2><:osi_projets:exemple_titre_mots_cles:></h2> -->
+
+            <INCLURE{fond=inclure/page-projets/4_mots_cles,id_projet=#ID_PROJET,env} />
+        </div>
+    ]
+
+
+    [(#GET{onglet}|=={'forum'}|oui)
+        <div>
+            <!-- <h2><:osi_projets:exemple_titre_forum:></h2> -->
+
+            <INCLURE{fond=inclure/page-projets/5_forum,id_projet=#ID_PROJET,env} />
+        </div>
+    ]
+
+
+
+    [(#GET{onglet}|=={'gestion'}|oui)
+        <div>
+            <!-- <h2><:osi_projets:exemple_titre_gestion:></h2> -->
+
+            <INCLURE{fond=inclure/page-projets/6_gestion,id_projet=#ID_PROJET,env} />
+        </div>
+    ]
+    
+
+</div>

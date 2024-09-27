@@ -1,0 +1,133 @@
+<link rel="stylesheet" href="#CHEMIN{css/mot_etat.css}" type="text/css">
+<link rel="stylesheet" href="#CHEMIN{css/form.css}" type="text/css">
+<link rel="stylesheet" href="#CHEMIN{css/menu_configuration.css}" type="text/css">
+
+
+
+<div class="pr_mots_item ajax">
+
+    
+<BOUCLE_classer_mot(spip_mots_liens){tout}{id_mot==#ENV{id_mot}}{id_objet==#ENV{id_objet}}{objet==#ENV{nom_objet}}>
+    #SET{valeur,#LIEN_PROJET}    
+</BOUCLE_classer_mot>
+
+
+
+
+
+<style>
+    .menu-modification-mot-etat{
+        display: none;
+    }
+</style>
+
+
+[(#REM)
+    Mise en place d'une valeur pour que les menu s'active correctement
+]
+
+[(#ENV{debug_valeur}|oui)
+    #SET{debug_valeur,#ENV{debug_valeur}}
+][(#ENV{debug_valeur}|non)
+    [(#ENV{nom_objet}|=={'projet'}|oui)
+        #SET{debug_valeur,1}
+    ]
+    [(#ENV{nom_objet}|=={'osip_role'}|oui)
+        #SET{debug_valeur,2}
+    ]
+    [(#GET{debug_valeur}|non)
+        #SET{debug_valeur,0}
+    ]
+]
+
+
+
+
+
+    <div class="pr_mots_item_top menu">
+        <div class="pr_mots_item_top left">
+            <div><strong>#ENV{titre}</strong></div>
+            <div>([(#VAL{mot_projet}|filtre_affichage_bouton_changer_champ{[(#ENV{id_mot}|filtre_get_lien_projet{#ENV{id_objet},#ENV{nom_objet}})]})])</div>
+        </div>
+        
+        <div class="pr_mots_item_top right">
+            <button onclick="$('#menu-modification-mot-etat-#ENV{id_mot}-#ENV{id_objet}-#GET{debug_valeur}').toggle();">
+                <:osi_projets:modification:>    
+            </button>
+        </div>
+    </div>
+
+
+    <div id="menu-modification-mot-etat-#ENV{id_mot}-#ENV{id_objet}-#GET{debug_valeur}" class="menu-modification-mot-etat">
+
+        <form name="formulaire_#FORM" action="#ENV{action}" method="post">
+            #ACTION_FORMULAIRE{#ENV{action}}
+            <input type="hidden" name="id_mot" value="#ENV{id_mot}">
+            <input type="hidden" name="id_objet" value="#ENV{id_objet}">
+            <input type="hidden" name="nom_objet" value="#ENV{nom_objet}">
+            <input type="hidden" name="texte_bouton" value="#ENV{texte_bouton}">
+
+
+            <!-- Ajout des boutons radio pour la valeur avec des noms personnalisés -->
+            <fieldset>
+                <legend><:osi_projets:choisir_valeur:></legend>
+                <div class="flex-row">
+                    <div>
+                        <input type="radio" name="valeur" value="0" id="valeur_0" [(#GET{valeur}|=={0}|oui)checked]> 
+                        <label for="valeur_0">
+                                [(#ENV{texte_bouton}|filtre_affichage_bouton_changer_champ{0})]
+                        </label>
+                    </div>
+                    
+
+                    [(#VAL{cause}|filtre_verifier_type_mot_actif|oui) 
+                    <div>
+                        <input type="radio" name="valeur" value="1" id="valeur_1" [(#GET{valeur}|=={1}|oui)checked]>
+                        <label for="valeur_1">
+                                [(#ENV{texte_bouton}|filtre_affichage_bouton_changer_champ{1})]
+                        </label>
+                    </div>
+                    ]
+
+                    [(#VAL{condition}|filtre_verifier_type_mot_actif|oui)  
+                       <div>
+                            <input type="radio" name="valeur" value="2" id="valeur_2" [(#GET{valeur}|=={2}|oui)checked]> 
+
+                            <label for="valeur_2">
+                                [(#ENV{texte_bouton}|filtre_affichage_bouton_changer_champ{2})]
+                            </label>
+                       </div>
+                        
+                    ]
+
+                    [(#VAL{condition_inverse}|filtre_verifier_type_mot_actif|oui)  
+                        <div>
+                            <input type="radio" name="valeur" value="4" id="valeur_4" [(#GET{valeur}|=={4}|oui)checked]>
+                            <label for="valeur_4">
+                                [(#ENV{texte_bouton}|filtre_affichage_bouton_changer_champ{4})]
+                        </label>
+                        </div>
+                    ]
+
+                    [(#VAL{recompense}|filtre_verifier_type_mot_actif|oui)  
+                    <div>
+                        <input type="radio" name="valeur" value="3" id="valeur_3" [(#GET{valeur}|=={3}|oui)checked]>
+                        <label for="valeur_3">
+                            [(#ENV{texte_bouton}|filtre_affichage_bouton_changer_champ{3})]
+                       </label>
+                    </div>
+                        
+                    ]
+                </div>
+
+            </fieldset>
+
+            <input type="submit" value="<:osi_projets:modifier_valeur:>">
+        </form>
+
+
+    
+</div>
+
+
+</div>

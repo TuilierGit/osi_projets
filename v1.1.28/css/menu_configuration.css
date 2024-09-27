@@ -1,0 +1,215 @@
+
+
+.bouton-configuration-installation{
+    display: flex; 
+    justify-content: space-between;
+}
+
+.bouton-configuration-installation-box{
+    /* position: relative; 
+    top: -30px; */
+    margin: 15px 0 15px 0;
+}
+
+
+/* Diverses options */
+
+.options {
+    margin: 0 0 30px 0;
+}
+
+
+.options > ul {
+    margin: 0 0 0 25px;
+}
+
+/* Modifier le nom des liens des auteurs */
+
+.configuration-liens{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.configuration-lien{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: solid 2px lightgrey;
+    border-radius: 25px;
+    overflow: hidden;
+    padding: 15px;
+    gap: 5%;
+}
+
+
+.flex-item {
+    border: solid 1px darkgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+}
+
+
+.formulaire_spip.formulaire_configuration_nom_lien_auteur {
+    margin: 0;
+}
+
+/* .editer_lien_auteur.editer_acteur.obligatoire {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formulaire_spip .boutons{
+    background-color:unset;
+} */
+
+
+
+.configuration-projets {
+    padding: 35px 0 0 0;
+}
+
+.configuration-liens {
+    margin: 10px 0 25px 0;
+}
+
+
+/* ////////////////////// */
+
+
+
+li.editer_lien_auteur {
+    border: solid 1px;
+    margin: 10px;
+    padding: 10px 0 5px 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+
+.editer_lien_auteur div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+
+.box-configuration-oui-non{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+
+.configuration-projets .options > .options-box > ul > li {
+    border: solid 2px lightgrey;
+    margin: 15px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.configuration-projets .options > .options-box > ul > li > p {
+    margin: 0;
+}
+
+.options-box {
+    margin: 0 0 50px 0;
+}
+
+
+
+
+table.choix-des-liens > tbody > tr {
+    border: 1px solid lightgrey;
+}
+
+
+table.choix-des-liens > tbody > tr > td {
+    border: 1px solid lightgrey;
+}
+
+
+
+/* ////////////////////// PAGE ROLES ///////////////// */
+
+
+.configuration-roles {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.configuration-role {
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    padding: 15px 25px 15px 25px;
+    background: white;
+
+}
+
+.configuration-role-info div{
+    display: flex;
+    gap: 5px;
+}
+
+
+.etat-role{
+    color: white;
+    border-radius: 10px;
+    padding: 2px 5px 2px 5px;
+    height: 20px;
+}
+
+
+.etat-role-0{
+    border: solid 1px darkred;
+    background: rgb(255, 115, 0);
+}
+
+
+.etat-role-1 {
+    border: solid 1px darkgreen;
+    background: rgb(70 173 11 / 80%);
+}
+
+
+.role-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+/* ///////////////// PAGE NOTIFICATIONS ///////////////// */
+
+
+.erreur-box-notification{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid 4px black;
+    border-radius: 15px;
+    padding: 15px;
+    background: red;
+    color: white;
+}
+
+
+
+.notification-box {
+    border-top: solid 2px;
+    padding-top: 15px;
+}
+
+.notification-box h3 {
+    margin-left: 25px;
+}

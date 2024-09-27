@@ -1,0 +1,14 @@
+
+[(#ENV{id_auteur}|filtre_verifier_conditions_role{#ENV{id_role}}|oui)
+    <form name="formulaire_#FORM" action="#ENV{action}" method="post">
+        #ACTION_FORMULAIRE{#ENV{action}}
+        <input type="hidden" name="id_projet" value="#ENV{id_projet}">
+        <input type="hidden" name="id_auteur" value="#ENV{id_auteur}">
+        <input type="hidden" name="id_role" value="#ENV{id_role}">
+
+        <input type="submit" value="[(#VAL{'spip_osip_roles'}|get_info_table{'question','id_role',#ENV{id_role}}|sinon{<:osi_projets:demander_role:> [(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ENV{id_role}})] })]">
+    </form>
+]
+
+
+

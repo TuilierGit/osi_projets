@@ -1,0 +1,9 @@
+
+.ligne_osip_role{
+    display: flex;
+    flex-direction: row;
+    border: solid 1px lightgray;
+    justify-content: space-around;
+    padding: 5px 15px 0 15px;
+    align-items: center;
+}

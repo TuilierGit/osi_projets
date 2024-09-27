@@ -1,0 +1,74 @@
+[(#REM) 
+    
+    Description : 
+        Formulaire pour ajouter un auteur à un projet. Ce formulaire est prévu pour le front et prend en compte les mots clés de "condition" quand ces derniers sont activés. 
+
+    Paramètres d'environnement : 
+        - id_projet
+        - id_auteur
+
+]
+
+
+<link rel="stylesheet" href="#CHEMIN{css/form.css}" type="text/css" media="all" />
+
+<div class="formulaire_spip formulaire_#FORM">
+
+
+    [(#VAL{condition}|filtre_verifier_type_mot_actif|oui)
+        
+        [(#ENV{id_auteur}|filtre_verifier_conditions_projet{#ENV{id_projet}}|oui)
+
+            <p><:osi_projets:conditions_valides:></p>
+
+
+            
+                [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+                [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+            
+                [(#ENV{editable}|oui)
+                <form name="formulaire_#FORM" action="#ENV{action}" method="post">
+                    <div>
+                        #ACTION_FORMULAIRE{#ENV{action}}
+                        <ul>
+
+                            <INCLURE{fond=formulaires/inclure/boucle_roles_ajouter_auteur_projet}{env} />
+                                      
+                        </ul>
+                        <p class="boutons">
+                            <input type="submit" name="ok" value="<:osi_projets:ajouter_demande:>" />
+                        </p>
+                    </div>
+                </form>
+                ]
+
+        ] [(#ENV{id_auteur}|filtre_verifier_conditions_projet{#ENV{id_projet}}|non)
+            <:osi_projets:conditions_projet_erreur:>
+        ]
+
+    ]
+
+    [(#VAL{condition}|filtre_verifier_type_mot_actif|non)
+        
+        [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+        [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+        [(#ENV{editable}|oui)
+        <form name="formulaire_#FORM" action="#ENV{action}" method="post">
+            <div>
+                #ACTION_FORMULAIRE{#ENV{action}}
+                <ul>
+
+                    <INCLURE{fond=formulaires/inclure/boucle_roles_ajouter_auteur_projet}{id_auteur=#ENV{id_auteur}}{env}/>
+
+                </ul>
+                <p class="boutons">
+                    <input type="submit" name="ok" value="<:osi_projets:ajouter_demande:>" />
+                </p>
+            </div>
+        </form>
+        ]
+    ]
+
+
+</div>

@@ -1,0 +1,77 @@
+[(#REM) 
+
+    Description : 
+        Page "Gestion des notifications" dans configuration des options du plugin
+]
+
+
+[(#PLUGIN{notifavancees}|oui)
+    <div class="options">
+        <h2><:osip_configurations:titre_configuration_notification:></h2>
+
+        <div class="options-box notification-box">
+            <h3><:osip_notifications:titre_configuration_notification_individuelle:></h3>
+            <ul>
+                <li>
+                    <p><strong><:osip_notifications:notification_titre_demande_projet:></strong></p>
+                    <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/notification/demande_projet'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                    <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/notification/demande_projet'}</p>
+                </li>
+
+                <li>
+                    <p><strong><:osip_notifications:notification_titre_demande_resultat:></strong></p>
+                    <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/notification/demande_projet_resultat'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                    <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/notification/demande_projet_resultat'}</p>
+                </li>
+
+                <li>
+                    <p><strong><:osip_notifications:notification_titre_demande_role:></strong></p>
+                    <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/notification/demande_role'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                    <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/notification/demande_role'}</p>
+                </li>
+
+                <li>
+                    <p><strong><:osip_notifications:notification_titre_demande_role_resultat:></strong></p>
+                    <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/notification/demande_role_resultat'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                    <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/notification/demande_role_resultat'}</p>
+                </li>
+
+                <li>
+                    <p><strong><:osip_notifications:notification_titre_modification_grade:></strong></p>
+                    <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/notification/modification_grade'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                    <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/notification/modification_grade'}</p>
+                </li>
+
+                <li>
+                    <p><strong><:osip_notifications:notification_titre_exclusion_membre:></strong></p>
+                    <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/notification/exclusion_membre'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                    <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/notification/exclusion_membre'}</p>
+                </li>
+
+                <li>
+                    <p><strong><:osip_notifications:notification_titre_bannissement_membre:></strong></p>
+                    <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/notification/bannissement_membre'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                    <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/notification/bannissement_membre'}</p>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="options-box notification-box">
+            <h3><:osip_notifications:titre_configuration_notification_groupe:></h3>
+            <ul>
+                <li>
+                    <p><strong><:osip_notifications:notification_titre_nouveau_membre:></strong></p>
+                    <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/notification/nouvel_auteur_projet'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                    <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/notification/nouvel_auteur_projet'}</p>
+                </li>
+            </ul>
+        </div>
+    </div>                    
+]
+[(#PLUGIN{notifavancees}|non)
+    <div class="erreur-box-notification">
+        <p><:osip_notifications:notification_info_option_erreur:></p>
+        <p>https://plugins.spip.net/notifavancees.html</p>
+    </div>
+]

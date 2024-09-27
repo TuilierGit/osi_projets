@@ -1,0 +1,90 @@
+
+<style>
+    li.editer_titre.obligatoire {
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 15px;
+    }
+
+    input#titre {
+        width: 40%;
+        margin: 0 40% 0 5%;
+    }
+</style>
+
+
+<BOUCLE_projet_get_info(PROJETS){id_projet=#ENV{id_projet}}>
+    <BOUCLE_projet_get_info_rubrique(RUBRIQUES){id_projet=#ENV{id_projet}}>
+        #SET{titre,#TITRE}
+    </BOUCLE_projet_get_info_rubrique>
+
+    #SET{descriptif,#DESCRIPTIF}
+    #SET{texte,#TEXTE}
+
+</BOUCLE_projet_get_info>
+
+
+<div class="formulaire_spip formulaire_#FORM">
+    
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+    [(#ENV{editable}|oui)
+    <form name="formulaire_#FORM" action="#ENV{action}" method="post">
+        <div>
+            #ACTION_FORMULAIRE{#ENV{action}}
+            <ul>
+
+                <input type="hidden" name="id_projet" value="[(#ENV{id_projet})]" /> 
+
+                <li class="editer_titre obligatoire[ (#ENV**{erreurs}|table_valeur{titre}|oui)erreur]">	
+                    <label for="titre"><:info_titre:><em class="aide">#AIDER{titre}</em></label>
+                    [<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{titre})</span>]
+                    
+                    <input type='text' class='text' name='titre' id='titre' value="#GET{titre}"/>
+                </li>
+
+
+                [(#REM)
+                <li class="editer_date_debut obligatoire[ (#ENV**{erreurs}|table_valeur{message}|oui)erreur]">	
+                    <label for="champ_date_debut"><:osi_projets:projet_date_debut:></label>
+                    [<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{message})</span>]
+                    <input type="date" id="champ_date_debut" name="date_debut" value="[(#ENV{date_debut})]" />
+                </li>
+
+                <li class="editer_date_fin obligatoire[ (#ENV**{erreurs}|table_valeur{message}|oui)erreur]">	
+                    <label for="champ_date_fin"><:osi_projets:projet_date_fin:></label>
+                    [<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{message})</span>]
+                    <input type="date" id="champ_date_fin" name="date_fin" value="[(#ENV{date_fin})]" />
+                </li>
+                ]
+
+                <li class="editer_descriptif obligatoire[ (#ENV**{erreurs}|table_valeur{descriptif}|oui)erreur]">	
+                    <label for="descriptif"><:osi_projets:projet_descriptif:></label>
+                    [<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{descriptif})</span>
+                    ]<textarea name='descriptif' id='descriptif' rows='2' cols='40'>[(#GET{descriptif})]</textarea>
+                </li>
+
+
+                <li class="editer_texte obligatoire[ (#ENV**{erreurs}|table_valeur{message}|oui)erreur]">	
+                    <label for="champ_texte"><:osi_projets:projet_texte:><em class="aide">#AIDER{text_area}</em></label>
+                    [<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{texte})</span>
+                    ][(#ENV**{_texte_trop_long,''})
+                    ]<textarea name='texte' id='champ_texte' rows='20' cols='40'>[(#GET{texte})]</textarea>
+                </li>
+
+
+                
+
+
+            </ul>
+            <p class="boutons">
+                <input type="submit" name="ok" value="<:osi_projets:projet_edit_bouton_menu_projet:>" />
+            </p>
+        </div>
+    </form>
+    ]
+</div>
+

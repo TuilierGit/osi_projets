@@ -1,0 +1,19 @@
+<traduction
+	module="osi_projets"
+	id="osi_projets--osi_projets-00001"
+	reference="fr">
+
+    <!-- C'est ici qu'on déclare l'ajout d'une langue -->
+
+
+	<langue 
+        code="fr" 
+        total="220" 
+        traduits="0" 
+        relire="220" 
+        modifs="0" 
+        nouveaux="0" 
+        pourcent="100.00" 
+    />
+
+</traduction>

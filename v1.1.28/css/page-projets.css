@@ -1,0 +1,398 @@
+
+
+.container-page-projet{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.item-page-projet{
+    border: solid 1px lightgray;
+    padding: 15px 25px 15px 25px;
+    border-radius: 15px;
+    color: white;
+    background: #585858;
+}
+
+
+/* Page de mes rôles */
+
+.menu-mes-roles {
+    margin: 0 30px 0 30px;
+}
+
+.menu-mes-roles h3{
+    margin-bottom: 0;
+}
+
+.menu-mes-roles p {
+    margin-bottom: 0;
+}
+
+.menu-mes-roles-titre{
+    display: flex;    
+    justify-content: space-between;
+}
+
+.menu-mes-roles-titre p{
+    position: relative; 
+    top: -2px;  
+}
+
+@media (max-width: 630px) {
+    .menu-mes-roles-titre {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+@media (max-width: 840px) {
+
+    .liste-demande-role-projet {
+        border-top: solid 2px;
+        padding-top: 25px;
+    }
+
+    .menu-mes-roles-demandes{
+        flex-direction: column !important;
+    }
+}
+
+@media (min-width: 841px) {
+    .menu-mes-roles-demandes{
+        border-top: solid 2px;
+        padding-top: 25px;  
+    }
+}
+
+
+
+
+
+
+@media (max-width: 630px) {
+
+    li.separation {
+        display: none;
+    }
+
+
+    td.liste-des-roles-auteur-projet ul {
+        flex-direction: column !important;
+    }
+
+}
+
+
+td.liste-des-roles-auteur-projet ul {
+    text-align: center;
+}
+
+
+
+.menu-mes-roles-demandes{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: space-around;
+    
+}
+
+.menu-mes-roles-demandes div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+.page-projet-roles-container {
+    margin: 25px 40px 25px 40px;
+}
+
+
+/* Page des mots clés */
+
+.page-projet-mots-cles-container {
+    margin: 27px;
+}
+
+
+
+/* Page du forum */
+
+
+
+fieldset.previsu {
+    border: solid 2px;
+    border-radius: 5px;
+    margin: 0 20px;
+    background: darkgray;
+}
+
+fieldset.previsu li {
+list-style-type:none;
+padding: 5px;
+}
+
+
+fieldset.previsu ul {
+    margin: 15px 0;
+    padding: 0;
+    background: white;
+    border-radius: 5px;
+}
+
+
+fieldset.previsu p.boutons {
+    display: flex;
+    justify-content: center;
+}
+
+
+fieldset.previsu .comment-content p {
+    margin: 0;
+}
+
+
+
+
+.forum-container-header button {
+    white-space: normal;
+    height: auto;
+    line-height: 26px;
+    padding: 10px 15px;
+}
+
+
+.add-message{
+    background: rgba(144, 144, 144, 0.075);
+    border: solid 1px #c9c9c9;
+    padding: 3em 0 0 0;
+    width: 100%;
+}
+
+
+div#formulaire_forum > form > div {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+
+div#formulaire_forum > form > div fieldset.qui.session_qui {
+    display: none;
+}
+
+
+div#formulaire_forum > form > div legend {
+    display: none;
+}
+
+
+div#formulaire_forum > form > div p.boutons {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+div#formulaire_forum > form > div fieldset {
+    padding: 0 20px;
+}
+
+
+div#formulaire_forum > form > div .textarea-wrapper textarea#texte {
+    border: solid 2px lightgray;
+}
+
+
+
+
+/* .forum-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 0 25px 0;
+    border-top: solid;
+} */
+
+
+@media (max-width: 899px) {
+    .forum-container{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 900px) {
+    .forum-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.forum-container{
+    margin: 0 0 25px 0;
+    border-radius: 0 0 30px 30px;
+    overflow: scroll;
+    border: solid 2px lightgray;
+}
+
+.forum-left .liste-messages{
+    background: darkgray;
+    /* border-radius: 0 0 0 25px; */
+    height: 100%;
+}
+
+.forum-left .message{
+    background: white;
+}
+
+
+/* .forum-right{
+    border-radius: 0 0 25px 0;
+    border-right: solid 2px lightgray;
+    border-bottom: solid 2px lightgray;
+} */
+
+.forum-right .liste-messages{
+    border-radius: 5px;
+    background: lightgray;
+}
+
+.forum-right .message{
+    background: white;
+}
+
+.liste-messages {
+    padding: 1.5em;
+}
+
+
+.message {
+    border-radius: 2em;
+    padding: 1em;
+    margin: 0 0 30px 0;
+}
+
+
+.forum-right {
+    width: 100%;
+}
+
+
+/* .forum-container-top{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+} */
+
+
+
+.forum-container-header{
+    margin: 0 0 30px 0;
+}
+
+
+.osip-forum-sujet-header{
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.osip-forum-sujet-header-left p{
+    margin: 0;
+}
+
+.aucun-message {
+    display: flex;
+    justify-content: center;
+}
+
+.aucun-message p{
+    margin: 0;
+}
+
+
+.osip-center{
+    position: relative;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0);
+}
+
+.personnaliser-projet-front{
+    padding: 15px;
+    border: solid 1px lightgrey;
+    margin: 25px 0 25px 0;
+}
+
+
+
+
+.gestion-admin-front{
+    border: solid 2px;
+    /* border-radius: 25px; */
+    border-radius: 5px;
+    padding: 25px 40px 25px 40px;
+}
+
+
+
+/* Page des roles */
+
+.liste-demande-role-projet .message {
+    margin-top: 15px;
+}
+
+
+/* .menu-mes-roles-demandes div form {
+    margin-top: 30px;
+} */
+.liste-demande-role-projet-item {
+    margin-top: 30px;
+}
+
+
+.liste-demande-role-projet-item-box {
+    color: #fffafa !important;
+    background-color: #585858;
+    margin: 0 0 2em 0;
+    border-radius: 4px;
+    border: 0;
+    box-shadow: inset 0 0 0 2px #585858;
+    font-size: 0.8em;
+    font-weight: 900;
+    height: 3.5em;
+    letter-spacing: 0.35em;
+    line-height: 3.45em;
+    padding: 0 1.25em 0 1.6em;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+
+
+
+.onglets_simple.onglets_simple--svp.onglets_projets_front strong.on {
+    color: #fffafa !important;
+    background-color: #585858;
+    margin: 0 0 2em 0;
+    border-radius: 4px;
+    border: 0;
+    box-shadow: inset 0 0 0 2px #585858;
+    font-size: 0.8em;
+    font-weight: 900;
+    letter-spacing: 0.35em;
+    line-height: 3.45em;
+    padding: 0 1.25em 0 1.6em;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 4px 16px 4px 18px;
+    }

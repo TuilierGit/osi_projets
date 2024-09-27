@@ -1,0 +1,27 @@
+
+<div class="menu-mes-roles">
+
+    <div>
+        <BOUCLE_profil(spip_auteur_projet){id_projet=#ID_PROJET}{id_auteur=#SESSION{id_auteur}}>
+        
+            <div class="page-projet-roles-container container-page-projet">
+                #SET{nombre_de_mes_roles, 0}
+                #SET{role_id_projet, #ID_PROJET}
+                <BOUCLE_osip_roles(spip_osip_roles){etat=1}>
+                    [(#ID_ROLE|get_info_role{#GET{role_id_projet},#SESSION{id_auteur}, 'valeur'}|=={1}|oui)
+                        #SET{nombre_de_mes_roles, #GET{nombre_de_mes_roles}|plus{1}}
+                        <div class="item-page-projet">#TITRE</div>
+                    ]
+                </BOUCLE_osip_roles>  
+                [(#GET{nombre_de_mes_roles}|=={0}|oui)
+                    <div><:osi_projets:aucun_role_auteur:></div>
+                ]
+            </div>
+
+        </BOUCLE_profil>
+    </div>
+    <div class="menu-mes-roles-demandes">
+        <INCLURE{fond=inclure/divers/faire-demande-role,id_projet=#ID_PROJET,demande=0,titre=<:osi_projets:faire_demande:>} />
+        <INCLURE{fond=inclure/divers/faire-demande-role,id_projet=#ID_PROJET,demande=1,titre=<:osi_projets:liste_mes_demandes:>} />
+    </div>
+</div>   

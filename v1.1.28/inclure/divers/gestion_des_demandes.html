@@ -1,0 +1,81 @@
+[(#REM) 
+    
+    Description : 
+        Contenu de la page de gestion des demandes 
+
+
+    Paramètres d'environnement : 
+        - id_projet
+
+]
+
+#CACHE{0}
+
+
+<style>
+
+    td.auteur.pr_demandes_choix_de_reponse a {
+        margin: 0px 10px;
+    }
+
+    td.auteur.pr_demandes_choix_de_reponse input[type="submit"] {
+        color: #626258 !important;
+        background: none;
+        padding: 0;
+    }
+
+
+    td.auteur.pr_demandes_choix_de_reponse input[type="submit"]:hover {
+        color: #b08787 !important;
+    }
+
+
+    td.auteur.pr_demandes_choix_de_reponse form {
+        margin: 0;
+    }
+
+
+    td.auteur.pr_demandes_choix_de_reponse .inner {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+
+
+    td.auteur.pr_demandes_choix_de_reponse .changer-champ-projet , td.auteur.pr_demandes_choix_de_reponse a {
+        width: fit-content;
+    }
+
+</style>
+
+
+
+<!-- <h3><:osi_projets:titre_liste_demande:></h3> -->
+
+<div class="osip-gestion-demande">
+    <h4><:osi_projets:titre_liste_demande_rejoindre:></h4>
+
+    [(#INCLURE{fond=prive/objets/liste/pr_demandes, 
+        statut=#ENV{statut}, 
+        id_projet=#ENV{id_projet}, 
+        nb=30, 
+        sinon=<:osi_projets:aucune_demande:>, 
+        env=#ENV{env}, 
+        ajax=oui})]
+</div>
+
+
+<div class="osip-gestion-demande">
+    <h4><:osi_projets:titre_liste_demande_role:></h4>
+
+    [(#INCLURE{fond=prive/objets/liste/pr_demandes_roles, 
+        statut=#ENV{statut}, 
+        id_projet=#ENV{id_projet}, 
+        nb=30, 
+        sinon=<:osi_projets:aucune_demande:>, 
+        env=#ENV{env}, 
+        ajax=oui})]
+</div>
+

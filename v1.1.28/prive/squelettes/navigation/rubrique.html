@@ -1,0 +1,60 @@
+[(#REM) 
+
+    Description : 
+        Contenu de la barre de navigation (sur le coté gauche de la page d'édition) d'une rubrique 
+        
+]
+
+<link rel="stylesheet" href="#CHEMIN{css/rubrique.css}" type="text/css">
+
+
+<BOUCLE_nav(RUBRIQUES){id_rubrique}{statut?}{si #ENV{exec}|=={rubrique}}>
+#BOITE_OUVRIR{'','info'}
+#PIPELINE{boite_infos,#ARRAY{data,'',args,#ARRAY{'type','rubrique','id',#ENV{id_rubrique}}}}
+#BOITE_FERMER
+
+<div class="ajax">
+#FORMULAIRE_EDITER_LOGO{rubrique,#ID_RUBRIQUE,'',#ENV**}
+</div>
+
+#PIPELINE{afficher_config_objet,#ARRAY{args,#ARRAY{type,rubrique,id,#ID_RUBRIQUE},data,''}}
+
+
+
+[(#ID_PROJET|>{0}|oui)
+
+    <!-- Supprimer le bouton de suppression de la rurbrique quand elle est associé à un projet -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elements = document.querySelectorAll('span.icone.s24.horizontale.danger');
+            elements.forEach(function(element) {
+                element.remove();
+            });
+        });
+    </script>
+    
+
+    <div class="rubrique-projet">
+        <div class="rubrique-projet-container top">
+            <div class="image-plugin">
+                <img src="#CHEMIN{prive/themes/spip/images/osi_projets_30.png}" alt="Image du plugin">
+            </div>
+
+            <div class="texte">
+                <p><strong><:osi_projets:projet:> ID:</strong> #ID_PROJET</p>
+                <p><strong><:osi_projets:statut:></strong> [(#VAL{'spip_projets'}|get_info_table{'statut','id_projet',#ID_PROJET})]</p>
+            </div>
+        </div>
+        
+        <div class="rubrique-projet-container bot">
+            [(#ID_PROJET|filtre_voir_le_projet)]
+        </div>
+    
+    </div>
+
+]
+
+
+</BOUCLE_nav>
+[(#ENV{exec}|=={rubrique_edit}|oui)<INCLURE{fond=prive/squelettes/navigation/rubrique_edit,env}>]
+<//B_nav>

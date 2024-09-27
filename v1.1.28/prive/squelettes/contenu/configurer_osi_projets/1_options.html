@@ -1,0 +1,159 @@
+[(#REM) 
+
+    Description : 
+        Page "Diverses options" dans configuration des options du plugin
+]
+
+<div class="options">
+
+    <div class="bouton-configuration-installation">    
+            <div class="bouton-configuration-installation-box">
+                [(#EXEMPLE_CONFIGURATION)]
+            </div>
+    </div>
+
+
+    <div class="options-box">
+        <h2><:osip_configurations:configuration:></h2>
+        
+        <ul>
+            <li>
+                <p><:osip_configurations:rubriques_selection:></p>
+                #FORMULAIRE_CONFIGURATION_RUBRIQUES_DE_CREATION
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="options-box">
+
+        <h2><:osip_configurations:titre_diverses_options:></h2>
+        <ul>
+            <li>
+                <p><strong><:osip_configurations:configuration_description_droits_demandes:></strong></p>
+                <p><:osi_projets:texte_ma_valeur:> [(#VAL{osip_config_demandes}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{osip_config_demandes}</p>
+            </li>
+
+            <li>
+                <p><strong><:osip_configurations:configuration_titre_synchronisation_mots:></strong></p>
+                <p><:osip_configurations:configuration_description_synchronisation_mots:></p>
+                
+                <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/synchronisation_mots'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/synchronisation_mots'}</p>
+            </li>
+
+            <li>
+                <p><strong><:osip_configurations:configuration_titre_types_de_mots:></strong></p>
+                <p><:osip_configurations:configuration_description_types_de_mots:></p>
+                
+
+                <table class="choix-des-liens">
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><:osi_projets:texte_ma_valeur:></td>
+                        <td><:osi_projets:mettre_la_valeur:></td>
+                    </tr>
+                    [(#REM)
+                        <!-- Ne fait rien pour le moment mais est sensé provoqué une inclusion dans le projet quand la personne possède un mot d'une cause -->
+                        <tr>
+                            <td><:osi_projets:nom_cause:></td>
+                            <td>[(#VAL{'osi_projets/types_de_mots/cause'}|filtre_get_configuration|filtre_affichage_oui_non)]</td>
+                            <td>#FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/types_de_mots/cause'}</td>
+                        </tr>
+                    ]
+                    <tr>
+                        <td><:osi_projets:nom_condition:></td>
+                        <td>[(#VAL{'osi_projets/types_de_mots/condition'}|filtre_get_configuration|filtre_affichage_oui_non)]</td>
+                        <td>#FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/types_de_mots/condition'}</td>  
+                    </tr>
+                    <tr>
+                        <td><:osi_projets:nom_condition_inverse:></td>
+                        <td>[(#VAL{'osi_projets/types_de_mots/condition_inverse'}|filtre_get_configuration|filtre_affichage_oui_non)]</td>
+                        <td>#FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/types_de_mots/condition_inverse'}</td>  
+                    </tr>
+                    <tr>
+                        <td><:osi_projets:nom_recompense:></td>
+                        <td>[(#VAL{'osi_projets/types_de_mots/recompense'}|filtre_get_configuration|filtre_affichage_oui_non)]</td>
+                        <td>#FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/types_de_mots/recompense'}</td>  
+                    </tr>    
+                </table>
+            </li>
+
+            <li>
+                <p><strong><:osip_configurations:texte_configuration_verification_projets:></strong></p>
+                <:osi_projets:texte_ma_valeur:> [(#VAL{osi_projets/verification_projets}|filtre_get_configuration|filtre_affichage_oui_non)]
+                #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{osi_projets/verification_projets}
+            </li>
+
+
+
+            <li>
+                <p><strong><:osip_configurations:configuration_titre_recursivite:></strong></p>
+                <p><:osip_configurations:configuration_description_recursivite:></p>
+                
+                <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/recursivite'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/recursivite'}</p>
+
+
+                <div>
+                    [(#RECURSIVITE_PROJET{0})]
+                </div>
+
+            </li>
+
+            <li>
+                <p><strong><:osip_configurations:configuration_titre_webmaster_droits:></strong></p>
+                <p><:osip_configurations:configuration_description_webmaster_droits:></p>
+                
+                <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/webmaster_droits'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/webmaster_droits'}</p>
+            </li>
+
+            <li>
+                <p><strong><:osip_configurations:configuration_titre_auteur_banni:></strong></p>
+                <p><:osip_configurations:configuration_description_auteur_banni:></p>
+                
+                <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/auteur_banni'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/auteur_banni'}</p>
+            </li>
+
+
+            <li>
+                <p><strong><:osip_configurations:configuration_titre_creer_sous_projet_int:></strong></p>
+                <p><:osip_configurations:configuration_description_creer_sous_projet_int:></p>
+                
+                <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/creer_sous_projet_int'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>
+                <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{'osi_projets/creer_sous_projet_int'}</p>
+            </li>
+
+
+        </ul>
+    </div>
+    
+    <div class="options-box">
+
+        <h2><:osip_configurations:titre_installation_desinstallation:></h2>
+        <ul>
+
+            <li>
+                <p><strong><:osip_configurations:configuration_titre_chemin_des_rubriques:></strong></p>
+                <p><:osip_configurations:configuration_description_chemin_des_rubriques:></p>
+                <p><:osi_projets:texte_ma_valeur:>
+                    <strong>[(#VAL{'osi_projets/chemin_rubrique'}|filtre_get_configuration)]</strong> ([(#VAL{'osi_projets/id_chemin_rubrique'}|filtre_get_configuration)])</p>  
+                #FORMULAIRE_CONFIGURER_POSITION_DES_PROJETS
+            </li>
+
+            [(#REM)
+            <!-- Option très dangereuses qui ne marche pas encore car il faudrait désinstaller les autres objets qui dépendent aussi de la rubrique ce qui n'est pas encore fait dans le fichier "osi_projets_administrations" -->
+            <li>
+                <p><strong><:osip_configurations:configuration_titre_desinstallation_rubriques:></strong></p>
+                <p><:osip_configurations:configuration_description_desinstallation_rubriques:></p>
+                <p><:osi_projets:texte_ma_valeur:> [(#VAL{'osi_projets/desinstallation_rubriques'}|filtre_get_configuration|filtre_affichage_oui_non)]</p>  
+                <p><:osi_projets:mettre_la_valeur:> #FORMULAIRE_CONFIGURATION_OUI_NON_OSIP{osi_projets/desinstallation_rubriques}</p>   
+            </li>
+            ]
+           
+        </ul>
+    </div>
+</div>

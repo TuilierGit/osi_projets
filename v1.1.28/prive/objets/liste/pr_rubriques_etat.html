@@ -1,0 +1,126 @@
+<link rel="stylesheet" href="#CHEMIN{css/styles_projets.css}" type="text/css">
+
+<!-- On initialise les paramètres de tri par défaut -->
+[(#SET{defaut_tri, #ARRAY{
+    date, #ENV{date_sens, -1},
+    num titre, 1,
+    id_rubrique, 1,
+    points, -1
+}})]
+
+
+<BOUCLE_compter_rubriques(RUBRIQUES) {id_rubrique?} {id_projet?} {id_projet!<1} {id_mot?} {where?} {statut?} {recherche?} {collecte #GET{id_projet}} {tri #ENV{par, date}, #GET{defaut_tri}, session_liste_rubriques} {par titre}>
+    [(#ENV{id_auteur}|filtre_verifier_etat_dans_projet{#ID_PROJET, #ENV{etat}}|oui)
+        [(#SET{total_rubriques, #TOTAL_BOUCLE})]
+    ]
+</BOUCLE_compter_rubriques>
+
+
+
+<!-- Début de création du tableau -->
+
+<B_liste_rubriques>
+    <!-- Partie avant la boucle pour faire l'affichage -->
+
+    <div class="liste-objets projets">
+    <table class='spip liste'>
+
+    <!-- Première ligne de présentation du tableau -->
+    <caption>
+        <strong class="liste-projet-l1 caption">
+            #ENV{titre} 
+            [<span>(#GET{total_rubriques}|singulier_ou_pluriel{osi_projets:projet_un, osi_projets:projet_plus})</span>]
+
+        </strong>
+    </caption>
+
+
+        <!-- En-tête du tableau -->
+        <thead>
+            <tr class='first_row'>
+                <th class='statut' scope='col'>[(#TRI{statut, <span title="<:lien_trier_statut|attribut_html:>">#</span>, ajax})]</th>
+                <th class='titre principale' scope='col' colspan='2'>[(#TRI{num titre, <:info_titre:>, ajax})]</th>
+                <th class='auteur' scope='col'><:osi_projets:nom_etat_3:></th>
+                <th class='rubrique' scope='col'><:osi_projets:nom_rubrique_projet:></th>
+                <th class='nombre-auteurs' scope='col'><:osi_projets:nombre_auteurs:></th>
+                <th class='nombre-demandes' scope='col'><:osi_projets:nombre_demandes:></th>
+            </tr>
+        </thead>
+
+
+
+
+    
+
+    <!-- Corps du tableau (boucle sur les projets) -->
+    <tbody>
+        <BOUCLE_liste_rubriques(RUBRIQUES) {id_rubrique?} {id_projet?} {id_projet!<1} {id_mot?} {where?} {statut?} {recherche?} {collecte #GET{id_projet}} {tri #ENV{par, date}, #GET{defaut_tri}, session_liste_rubriques} {par titre} {pagination #ENV{nb, 10}} {!lang_select}>
+
+        [(#ENV{id_auteur}|filtre_verifier_etat_dans_projet{#ID_PROJET, #ENV{etat}}|oui)
+            <tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd, row_even})]">
+
+
+                <td class='statut'>[(#STATUT|puce_statut{projet, #ID_PROJET})]</td>
+                
+                 
+                <td class='titre principale' [(#LOGO_PROJET|non) colspan='2']>
+                    <a href="[(#ID_PROJET|generer_url_entite{projet})]"
+                       [hreflang="(#ENV{lang}|=={#LANG}|non|?{#LANG})"]
+                       title="<:info_numero_abbreviation|attribut_html:> #ID_RUBRIQUE">
+                        [(#RANG).]
+                        <strong>#TITRE</strong>
+                        (<small>#ID_PROJET</small>)
+                    </a>
+                </td>  
+
+
+                <td class='auteur'>
+                    <div class="inner">
+
+                        ]
+                        <BOUCLE_auteur_projet(spip_auteur_projet) {id_projet=#ID_PROJET} {etat=3}>
+                            [(#ENV{id_auteur}|filtre_verifier_etat_dans_projet{#ID_PROJET, #ENV{etat}}|oui)
+                            <a href="[(#ID_AUTEUR|generer_url_entite{auteur})]">
+                                [(#ID_AUTEUR|affichage_nom_auteur)]
+                            </a>
+                            ]
+                        </BOUCLE_auteur_projet>
+                        [(#ENV{id_auteur}|filtre_verifier_etat_dans_projet{#ID_PROJET, #ENV{etat}}|oui)
+                    </div>
+                </td>
+
+                <td class='rubrique'>
+                    <a href="[(#ID_RUBRIQUE|generer_url_entite{rubrique})]"
+                       title="<:info_numero_abbreviation|attribut_html:> #ID_RUBRIQUE">
+                        <strong>#ID_RUBRIQUE</strong>
+                    </a>
+                </td>
+
+
+                <td class='nombre-auteurs'>
+                    #OSIP_NB_AUTEURS{#ID_PROJET}
+                </td>
+
+
+                <td class='nombre-demandes'>
+                    #OSIP_NB_DEMANDES{#ID_PROJET}
+                </td>
+
+            </tr>
+
+        ]
+        </BOUCLE_liste_rubriques>
+    </tbody>
+    </table>
+</div>
+
+</B_liste_rubriques>
+<!-- Dans le cas où il n'y a aucun projet -->
+
+    <div class="liste-objets projets caption-wrap">
+        <strong class="caption">(#ENV*{sinon,''})</strong>
+    </div>
+<//B_liste_rubriques>
+
+
+

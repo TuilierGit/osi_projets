@@ -1,0 +1,61 @@
+[(#REM) 
+    
+    Description : 
+        Liste des demandes pour obtenir un role par rapport à un projet
+
+    Paramètres d'environnement : 
+        - id_projet (obligatoire)
+
+]
+
+<link rel="stylesheet" href="#CHEMIN{css/roles.css}" type="text/css">
+
+<!-- Début de création du tableau -->
+
+#SET{count, 0}
+<B_liste_demandes_roles>
+    <!-- Partie avant la boucle pour faire l'affichage -->
+
+    <div class="liste-objets osip_roles">
+        <BOUCLE_liste_demandes_roles(spip_auteur_projet) {id_projet?} {id_projet==#ENV{id_projet}} {etat?} {etat!<1} {!lang_select}>
+            <BOUCLE_lien_avec_le_role(spip_osip_roles_liens) {id_auteur_projet==#ID_AUTEUR_PROJET} {valeur==0} {demande==1}>               
+                [(#VAL{'spip_osip_roles'}|get_info_table{'etat','id_role',#ID_ROLE}|=={1}|oui)
+                    #SET{id_auteur_debug,#VAL{'spip_auteur_projet'}|get_info_table{'id_auteur','id_auteur_projet',#ID_AUTEUR_PROJET}}
+                    [(#ID_AUTEUR|=={#GET{id_auteur_debug}}|oui)
+
+                        #SET{count, #GET{count}|plus{1}}
+                        <div class="ligne_osip_role">
+                            <div><a>[(#ID_AUTEUR|affichage_nom_auteur)]\[#ID_AUTEUR\]</a></div>
+                            <div>[(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ID_ROLE})]</div>
+                            <div>
+                                #FORMULAIRE_CHANGER_VALEUR_ROLE{#ID_ROLE,#ID_AUTEUR_PROJET, 1, oui_non_simple}
+                                #FORMULAIRE_CHANGER_VALEUR_ROLE{#ID_ROLE,#ID_AUTEUR_PROJET, 0, oui_non_simple}
+                            </div>
+                        </div>
+                    ]
+
+
+                ]
+            </BOUCLE_lien_avec_le_role>
+        </BOUCLE_liste_demandes_roles>
+    </div>
+
+</B_liste_demandes_roles>
+
+[(#GET{count}|=={0}|oui)
+    <!-- Dans le cas où il n'y a aucun rôle -->
+
+    <style>
+        .liste-objets.osip_roles {
+            display: none;
+        }
+    </style>
+
+    <div class="message" >
+        <div class="message-top">
+            <strong class="osip-center">#ENV*{sinon,_T('osi_projets:aucune_demande')}</strong>
+        </div>
+    </div>
+]
+
+

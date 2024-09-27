@@ -1,0 +1,113 @@
+[(#REM) 
+    
+    Description : 
+        Tableau de l'ensemble des participants d'un projet pour le front end 
+
+    Paramètres d'environnement : 
+        - id_projet (obligatoire)
+        - identifiant (non obligatoire - valeur : 1/0)
+        - supprimer_titre (non obligatoire - valeur : 1/0)
+        - back (non obligatoire - valeur : 1/0)
+
+
+]
+
+
+#CACHE{0}
+
+
+<style>
+    table.tableau-participants-projet th {
+    padding: 0.75em 0.75em;
+}
+
+table.tableau-participants-projet tbody tr , table.tableau-participants-projet thead tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+}
+
+td.liste-des-roles-auteur-projet ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+td.liste-des-roles-auteur-projet ul li {
+    list-style-type: none;
+}
+
+
+td.liste-des-roles-auteur-projet ul {
+    margin: 0;
+}
+</style>
+
+
+<table class="tableau-participants-projet">
+    [(#ENV{supprimer_titre}|=={1}|non)
+        <caption>
+            <:osi_projets:liste_participants:>
+        </caption>
+    ]
+
+    <thead>
+      <tr>
+        <th scope="col"><:osi_projets:nom:></th>
+        <th scope="col"><:osi_projets:date_arrivee:></th>
+        [(#ENV{back}|=={1}|oui)
+            <th scope="col"><:osi_projets:email:></th>
+        ]
+        <th scope="col"><:osi_projets:titre_etat:></th>
+        <th scope="col"><:osi_projets:roles:></th>
+        [(#ENV{back}|=={1}|oui)
+            [(#ENV{identifiant}|=={1}|oui)
+                <th scope="col"><:osi_projets:id:></th>
+            ]
+        ]
+
+      </tr>
+    </thead>
+    <tbody>
+        <BOUCLE_participants(spip_auteur_projet){id_projet=#ENV{id_projet}}{etat!<1}{pagination 10}>
+            <tr>                
+                <th scope="row">
+                    <a href="[(#URL_AUTEUR{#ID_AUTEUR})]">
+                        [(#VAL{'spip_auteurs'}|get_info_table{'nom','id_auteur',#ID_AUTEUR})]
+                    </a>
+                </th>
+
+                <td scope="row">[(#DATE|affdate_jourcourt)]</td>
+
+                [(#ENV{back}|=={1}|oui)
+                    <td scope="row">[(#VAL{'spip_auteurs'}|get_info_table{'email','id_auteur',#ID_AUTEUR})]</td>
+                ]
+
+                <td>[(#ETAT|filtre_affichage_etat_auteur)]</td>
+                <td class="liste-des-roles-auteur-projet">
+                    <ul>
+                        #SET{id_auteur_liste, #ID_AUTEUR}
+                        #SET{count, 0}
+                        <BOUCLE_osip_roles(spip_osip_roles){etat=1}>
+                            [(#ID_ROLE|get_info_role{#ENV{id_projet}, #GET{id_auteur_liste},'valeur'}|=={1}|oui)
+                                [(#GET{count}|=={0}|oui)
+                                    <li class="separation">|</li>
+                                ]
+                                #SET{count, #GET{count}|plus{1}}
+                                <li>#TITRE</li>
+                                <li class="separation">|</li>
+                            ]
+                        </BOUCLE_osip_roles>                     
+                    </ul>
+                </td>
+
+                [(#ENV{back}|=={1}|oui)
+                    [(#ENV{identifiant}|=={1}|oui)
+                        <td>#ID_AUTEUR</td>
+                    ]
+                ]
+            </tr>
+        </BOUCLE_participants>
+        #PAGINATION{prive}
+        </B_participants>
+    </tbody>
+</table>

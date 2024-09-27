@@ -1,0 +1,23 @@
+
+[(#REM) 
+    
+    Description : 
+        Liste des mots associés à un objet (projet ou role) dans le but de classer ce mot
+
+    Paramètres d'environnement : 
+        - id_objet  (obligatoire)
+        - nom_objet (obligatoire)
+]
+
+
+<div class="liste-objets mots">
+    <div class="pr_mots_items">
+        <BOUCLE_mots_liens(spip_mots_liens){tout} {id_objet?} {id_objet==#ENV{id_objet}} {objet==#ENV{nom_objet}}>
+            <BOUCLE_mots(MOTS) {id_mot==#ID_MOT}>
+                [(#VAL|filtre_verifier_tous_les_types_de_mots|oui)  
+                    #FORMULAIRE_CLASSER_MOT{#ID_MOT, #ENV{id_objet}, #ENV{nom_objet}, mot_projet, #TITRE,env}
+                ]
+            </BOUCLE_mots>
+        </BOUCLE_mots_liens>
+    </div>  
+</div>

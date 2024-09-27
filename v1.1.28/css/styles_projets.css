@@ -1,0 +1,50 @@
+/* .rubrique-projet {
+    background-color: #f0f8ff;
+    padding: 0 0 0 20px;
+    border: 1px solid #ccc;
+} */
+
+.rubrique-standard {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+
+.liste-objets.mes_projets{
+    display: flex;
+    gap: 15px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+
+.un-projet{
+    width: 250px;
+}
+
+
+.tiles article {
+    width: 100%;
+}
+
+
+
+strong.liste-projet-l1.caption {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+/* Demande d'ajout de lien */
+
+.liste-demande-lien-projet{
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+}

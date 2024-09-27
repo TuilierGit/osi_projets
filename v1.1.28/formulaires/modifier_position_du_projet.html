@@ -1,0 +1,37 @@
+
+
+
+<form name="formulaire_#FORM" action="#ENV{action}" method="post">
+    #ACTION_FORMULAIRE{#ENV{action}}
+    <input type="hidden" name="id_projet" value="#ENV{id_projet}">
+    <div style="display: flex;">
+        <input type="text" name="chemin_rubrique" id="chemin_rubrique" value="" style="display: none;"/>
+        <input type="text" name="chemin_id_rubrique" id="chemin_id_rubrique" value="" style="display: none;"/>
+        [(#ENV{id_rubrique}|selecteur_rubrique_spip{'rubrique', false})]
+        <input type="submit" value="Enregistrer" />
+    </div>
+</form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var selectElement = document.querySelector('select[name="id_rubrique"]');
+        var textInput1 = document.getElementById('chemin_rubrique');
+        var textInput2 = document.getElementById('chemin_id_rubrique');
+
+
+        if (selectElement) {
+            selectElement.addEventListener('change', function () {
+                var selectedOption = selectElement.options[selectElement.selectedIndex];
+                textInput1.value = selectedOption.text.trim();
+                textInput2.value = selectedOption.value.trim();
+            });
+
+            // Set initial value if an option is already selected
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+            textInput1.value = selectedOption.text.trim();
+            textInput2.value = selectedOption.value.trim();
+
+        }
+    });
+</script>

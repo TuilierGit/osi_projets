@@ -1,0 +1,40 @@
+/* Bouton dans rubrique pour voir le projet associé */
+
+.rubrique-projet {
+    border: solid 1.5px darkgray;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.rubrique-projet-container.top {
+    background: lightgrey;
+    padding: 2% 5% 1% 5%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.rubrique-projet-container.top .texte {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 0 22px;
+}
+
+.rubrique-projet-container.top .texte p {
+    margin: 0;
+}
+
+.rubrique-projet-container.bot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5%;
+    font-size: larger;
+}
+
+
+.rubrique-projet-container a.btn.btn-primary {
+    text-align: center;
+}

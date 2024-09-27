@@ -1,0 +1,73 @@
+<paquet
+prefix="osi_projets"
+categorie="divers"
+version="1.1.28"
+etat="dev"
+compatibilite="[3.0.0;4.3.*]"
+logo="prive/themes/spip/images/osi_projets.png"
+documentation=""
+schema="1.1.17"
+>
+
+    <nom>Osi Projets</nom>
+    <auteur>Tuilier Thomas</auteur>
+    <licence>GNU/GPL</licence>
+
+
+    <!--Permet de d'ajouter le menu "Osi Projets" dans le menu Edition-->
+
+    <menu 
+    nom="editer_osi_projets" titre="osi_projets:titre_osi_projets" parent="menu_edition" 
+    icone="images/osi_projets_16.png" 
+    />
+
+
+    <!--Permet de d'ajouter le menu "Osi Projets" dans le menu Configuration-->
+
+    <menu 
+    nom="configurer_osi_projets" titre="osi_projets:titre_configuration_osi_projets" 
+    parent="menu_configuration" 
+    icone="images/osi_projets_16.png" 
+    />
+
+
+    <!-- Modification de la base de données spip -->
+
+    <pipeline nom="declarer_tables_interfaces" inclure="base/osi_projets_tables.php" />
+
+    <pipeline nom="declarer_tables_objets_sql" inclure="base/osi_projets_tables.php" />
+
+    <pipeline nom="declarer_tables_auxiliaires" inclure="base/osi_projets_tables.php" />
+
+
+    <!-- Déclaration des pipelines du plugin -->
+
+    <pipeline 
+        nom="post_insertion" 
+        action="insertion_rubrique"
+        inclure="osi_projets_pipelines.php" 
+    />
+
+
+    <pipeline 
+        nom="boite_infos" 
+        inclure="osi_projets_pipelines.php" 
+    />
+
+    <pipeline 
+        nom="affiche_milieu" 
+        inclure="osi_projets_pipelines.php" 
+    />
+
+    <pipeline 
+        nom="afficher_contenu_objet" 
+        inclure="osi_projets_pipelines.php" 
+    />
+
+    <pipeline 
+        nom="formulaire_traiter" 
+        inclure="osi_projets_pipelines.php" 
+    />
+
+</paquet>
+

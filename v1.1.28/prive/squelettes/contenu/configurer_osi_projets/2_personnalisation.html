@@ -1,0 +1,85 @@
+[(#REM) 
+
+    Description : 
+        Page "Gestion des rôles" dans configuration des options du plugin
+]
+
+
+<script src="javascript/jquery-1.11.0.min.js"></script>
+
+<style>
+    .menu-modification{
+        display: none;
+    }
+</style>
+
+
+<div class="bouton-configuration-installation">    
+    <div class="bouton-configuration-installation-box">
+        [(#EXEMPLE_ROLES)]
+    </div>
+</div>
+
+<h3><:osip_configurations:ajouter_un_role:></h3>
+
+<div class="configuration-roles">
+    #FORMULAIRE_CREER_UN_ROLE
+</div>
+
+
+<h3><:osip_configurations:modifier_roles:></h3>
+
+<div class="ajax">
+    <div class="configuration-roles">
+        <BOUCLE_osip_roles(spip_osip_roles){tout}>
+            <div class="configuration-role">
+                <div class="configuration-role-info">
+                    <div class="role-buttons">
+                        <p><strong>#TITRE</strong></p> 
+                        <div class="etat-role etat-role-#ETAT">[(#ETAT|filtre_affichage_etat_role)]</div>
+                    </div>
+                    
+                    <div>
+                        <p><:osi_projets:description:></p>
+                        <i>#DESCRIPTIF</i>
+                    </div>
+                    <div>
+                        <p><:osi_projets:question:></p>
+                        <i>#QUESTION</i>
+                    </div>
+                </div>
+                <div class="role-buttons">
+                    <div class="left">
+                        <button onclick="$('#menu-modification-#ID_ROLE').toggle();"><:osi_projets:modification:></button>
+                        #ACTIVER_ROLE{#ID_ROLE,#ETAT}
+                    </div>
+                    <div class="right">
+                        #SUPPRIMER_ROLE{#ID_ROLE}
+                    </div>
+                </div>
+                <div id="menu-modification-#ID_ROLE" class="menu-modification">
+                    #FORMULAIRE_CONFIGURATION_ROLE{#ID_ROLE}
+
+                    <div class="ajax">
+                        <div class="formulaire_spip formulaire_mots">
+                            #FORMULAIRE_EDITER_LIENS{mots, osip_role, #ID_ROLE}
+                        </div>
+                    </div>    
+
+
+                    [(#INCLURE{fond=prive/objets/liste/pr_mots, 
+                        statut=#ENV{statut}, 
+                        id_objet=#ID_ROLE, 
+                        nom_objet=osip_role,
+                        nb=30, 
+                        titre=<:osi_projets:titre_toutes_les_auteurs:>, 
+                        sinon=<:osi_projets:aucun_auteur:>, 
+                        env=#ENV{env}, 
+                        ajax=oui})]  
+
+
+                </div>
+            </div>
+        </BOUCLE_osip_roles>
+    </div>  
+</div>

@@ -1,0 +1,13 @@
+
+<div class="changer-champ-projet">
+    <form name="formulaire_#FORM" action="#ENV{action}" method="post">
+        #ACTION_FORMULAIRE{#ENV{action}}
+        <input type="hidden" name="id_auteur_projet" value="#ENV{id_auteur_projet}">
+        <input type="hidden" name="champ" value="#ENV{champ}">
+        <input type="hidden" name="valeur" value="#ENV{valeur}">
+        <input type="submit" value="[(#ENV{texte_bouton}|filtre_affichage_bouton_changer_champ{#ENV{valeur}})]">
+    </form>
+</div>
+
+
+

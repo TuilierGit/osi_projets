@@ -1,0 +1,44 @@
+span.icone.s24.horizontale.mot-new-24 {
+    display: none;
+}
+
+/* .toggle_box_link {
+    display: none;
+} */
+
+.liste-objets.liste-objets-lies.mots.caption-wrap {
+    display: none;
+}
+
+.noajax.hasajax .over {
+    display: none;
+}
+
+
+.toggle_box_link {
+    color: rgba(0, 0, 0, 0);
+}
+
+.selecteur p.boutons {
+    display: none;
+}
+
+.toggle_box_link button.link {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    box-shadow: none !important;
+    font-weight: bold;
+    border-bottom: dotted 2px rgba(88, 88, 88, 0.5);
+    padding: 0;
+    color: #585858;
+    border-radius: 0;
+    font-family: Source Sans Pro, Arial, Helvetica, sans-serif;
+    letter-spacing: normal !important;
+    height: 2.5em !important;
+}
+
+
+.toggle_box_link button.link:hover {
+    color: #b08787 !important;
+}

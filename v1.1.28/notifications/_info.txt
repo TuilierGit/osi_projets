@@ -1,0 +1,1 @@
+Pour activer les notifications dans ce plugin il faut avoir le plugin "Notifications avancées" sur le site. (https://plugins.spip.net/notifavancees.html)

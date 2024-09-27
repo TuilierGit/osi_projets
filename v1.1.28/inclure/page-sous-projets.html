@@ -1,0 +1,34 @@
+[(#REM) 
+
+    Remarque : 
+        Ne doit pas être utilisé directement. Il faut passer par le fichier "page-projets.html"
+
+]
+
+<div>
+    <h2>Liste des projets</h2>
+    
+    <div style="
+        display: flex; 
+        flex-wrap: wrap; flex-direction: row;
+        justify-content: space-between
+    ">
+        <div>
+            <p>Il y a actuellement #OSIP_NB_PROJETS{#ENV{id_rubrique}} projets.</p>
+
+            [(#REM)
+                <p>Il y a au total #OSIP_NB_TOUS_LES_PROJETS projets.</p>
+            ]
+
+        </div>
+        <div>
+            #ACTUALISER_LES_PROJETS
+        </div>
+        
+    </div>
+    
+    <section class="tiles">
+        #OSIP_SOUS_PROJETS{#ENV{id_rubrique}}
+    </section>
+
+</div>

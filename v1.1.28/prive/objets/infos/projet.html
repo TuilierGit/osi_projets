@@ -1,0 +1,35 @@
+[(#REM) 
+    
+    Description : 
+        Contenu de la boite d'information d'un projet
+
+    Paramètres d'environnement : 
+        - id (obligatoire)
+
+]
+
+<link rel="stylesheet" href="#CHEMIN{css/info_projet.css}" type="text/css">
+
+<BOUCLE_projet(spip_projets){id_projet=#ENV{id}}{statut?}{!lang_select}>
+    <div class="infos info_projet">
+        <div class="numero"><:osi_projets:titre_numero_projet:>
+            <p>#ID_PROJET</p>
+        </div>
+
+        <div class="info_projet-container">
+            <p><:osi_projets:titre_niveau:> #NIVEAU</p>
+            <p><:osi_projets:titre_taille:> #TAILLE</p>
+        </div>
+
+    </div>
+
+</BOUCLE_projet>
+
+
+
+
+    
+    
+    
+    
+    

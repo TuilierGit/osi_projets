@@ -1,0 +1,18 @@
+<traduction
+	module="osip_configurations"
+	id="osip_configurations--osip_configurations-00001"
+	reference="fr">
+
+    <!-- C'est ici qu'on déclare l'ajout d'une langue -->
+
+	<langue 
+        code="fr" 
+        total="39" 
+        traduits="0" 
+        relire="39" 
+        modifs="0" 
+        nouveaux="0" 
+        pourcent="100.00" 
+    />
+
+</traduction>

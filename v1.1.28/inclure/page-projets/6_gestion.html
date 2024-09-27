@@ -1,0 +1,27 @@
+
+
+#SET{defaut_admin,explication}
+[(#ENV{onglet_admin}|oui) #SET{onglet_admin, #ENV{onglet_admin}}]
+[(#ENV{onglet_admin}|non) #SET{onglet_admin, #GET{defaut_admin}}]
+
+<div class="menu-mes-roles-titre">
+
+    <div class="menu-mes-roles-titre-info" >
+            <h3>[(#SESSION{id_auteur}|filtre_affichage_nom_auteur)]</h3> 
+            
+            <p>\([(#VAL{'etat'}|get_info_auteur_projet{#SESSION{id_auteur},#ENV{id_projet}}|filtre_affichage_etat_auteur)]\)</p>
+    </div>
+    <div>
+            [(#QUITTER_PROJET{#ENV{id_projet}, #SESSION{id_auteur}})]
+    </div>
+</div> 
+
+
+[(#SESSION{id_auteur}|filtre_verifier_droits_projet{#ENV{id_projet}}|oui)
+<div class="gestion-admin-front">
+    <INCLURE{fond=inclure/page-projets/6_gestion-admin,id_projet=#ID_PROJET,ajax,env,cs} />
+</div>
+    
+]
+
+

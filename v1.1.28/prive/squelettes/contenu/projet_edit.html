@@ -1,0 +1,149 @@
+[(#REM) 
+    
+    Description : 
+        Contenu de la page de modification d'un projet 
+
+
+    Paramètres d'environnement : 
+        - id_projet
+
+]
+
+<link rel="stylesheet" href="#CHEMIN{css/projet.css}" type="text/css">
+<link rel="stylesheet" href="#CHEMIN{css/projet_edit.css}" type="text/css">
+
+
+<style>
+    .menu-modification-personnalisation{
+        display: none;
+    }
+
+    .menu-modification-personnalisation-projet{
+        display: none;
+    }
+
+    .menu-modification-rubrique{
+        display: none;
+    }
+
+    .menu-modification-projet{
+        display: none;
+    }
+</style>
+
+
+#SET{objet,projet}
+#SET{id_objet,#ENV{id_projet}}
+
+#SET{redirect,#ENV{redirect}|sinon{#ENV{lier_trad,#GET{id_objet}}|?{#ENV{lier_trad,#GET{id_objet}}|generer_url_entite{#GET{objet}},#GET{id_rubrique}|?{#GET{id_rubrique}|generer_url_entite{rubrique},#URL_ECRIRE{rubriques}}}}}
+
+<div class='cadre-formulaire-editer'>
+<div class="entete-formulaire">
+	[(#GET{id_objet}|oui)
+	[(#GET{redirect}|icone_verticale{[(#GET{objet}|objet_info{texte_retour}|_T)],#GET{objet}|objet_info{icone_objet},'',left retour[(#ENV{retourajax,''}|oui)ajax preload]})]
+	]
+	
+    <h1 class="grostitre"><:osip_configurations:titre_modification_projet:>#ENV{id_projet}</h1>
+</div>
+
+
+<div class="formulaire_spip ajax bloc-du-menu">
+    <h2 class="grostitre"><:osip_configurations:projet_edit_titre_menu_personnalisation:></h2>
+
+    <p><:osip_configurations:projet_edit_descriptif_menu_personnalisation:></p>
+
+    <button onclick="$('#menu-modification-personnalisation').toggle();"><:osip_configurations:projet_edit_bouton_menu_personnalisation:></button>
+
+    <div id="menu-modification-personnalisation" class="menu-modification-personnalisation">
+
+        <div class="osip-menu-modification-personnalisation">
+
+            <!-- Modifier le projet -->
+            <div>
+                <h3 class="grostitre"><:osi_projets:modifier_projet:></h3>
+
+                <p><:osip_configurations:projet_edit_descriptif_menu_personnalisation_projet:></p>
+
+                <button onclick="$('#menu-modification-personnalisation-projet').toggle();"><:osi_projets:modifier_projet:></button>
+
+
+                <div id="menu-modification-personnalisation-projet" class="menu-modification-personnalisation-projet">
+                    #FORMULAIRE_PERSONNALISER_PROJET{#ENV{id_projet},env} 
+                </div>
+            </div>
+
+
+            <!-- Modifier la rubrique associée au projet -->
+            <div>
+
+                <h3 class="grostitre"><:osip_configurations:projet_edit_titre_menu_rubrique:></h3>
+
+                <p><:osip_configurations:projet_edit_descriptif_menu_rubrique:></p>
+
+                <button onclick="$('#menu-modification-rubrique').toggle();"><:osi_projets:projet_edit_bouton_menu_rubrique:></button>
+
+
+                <div id="menu-modification-rubrique" class="menu-modification-rubrique">
+                    <BOUCLE_projet(spip_projets){tout}{id_projet=#ENV{id_projet}}>
+                        <INCLURE{fond=prive/echafaudage/contenu/objet_edit,objet=rubrique,id_objet=#ID_RUBRIQUE,env}>
+                    </BOUCLE_projet>
+                </div>
+
+            </div>
+
+        </div>
+        
+    </div>
+
+</div>
+
+
+<div class="formulaire_spip ajax bloc-du-menu">
+    <h2 class="grostitre"><:osip_configurations:projet_edit_titre_menu_projet:></h2>
+
+    <p><:osip_configurations:projet_edit_descriptif_menu_projet:></p>
+
+    <button onclick="$('#menu-modification-projet').toggle();"><:osi_projets:modifier_projet:></button>
+
+
+    <div id="menu-modification-projet" class="menu-modification-edit menu-modification-projet">
+
+        #SET{options,#ARRAY}
+        [(#STATUT|=={prop}|oui)[(#SET{options,[(#ARRAY{label_date,<:texte_date_publication_objet:>})]})] ]
+        <div class="ajax">
+            #FORMULAIRE_DATER{projet,#ENV{id_projet},'',#GET{options}}
+        </div>
+
+
+        <div class="presentation-info-projet-container">
+            <h3><:osi_projets:titre_une_rubrique:></h3>
+            <p><:osip_configurations:description_choix_rubrique_projet:></p>
+            <BOUCLE_projet_info(spip_projets){tout}{id_projet=#ENV{id_projet}}>
+                <BOUCLE_rubrique_info(RUBRIQUES){tout}{id_rubrique=#ID_RUBRIQUE}>
+                    <p>Rubrique associée : <strong>#TITRE \(#ID_RUBRIQUE\)</strong></p>
+                </BOUCLE_rubrique_info>
+            </BOUCLE_projet_info>
+            #FORMULAIRE_MODIFIER_POSITION_DU_PROJET{#ENV{id_projet}}
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+[(#REM) Partie qui permet d'avoir l'URL]
+
+#SET{redirect,#ENV{redirect,#GET{id_objet}|generer_url_entite{#GET{objet}}}}
+[(#ENV{retourajax,''}|oui)
+	#SET{redirect,'javascript:if (window.jQuery) jQuery(".entete-formulaire .retour a").followLink();'}
+	<div class="ajax">
+]
+		[(#FORMULAIRE_{[editer_(#GET{objet})],#ENV{id_objet,oui},#GET{id_rubrique},#GET{redirect},#ENV{lier_trad}})]
+[(#ENV{retourajax,''}|oui)
+	</div>
+	<script type="text/javascript">/*<!\[CDATA\[*/reloadExecPage('#ENV{exec}');/*\]\]>*/</script>
+]
+</div>

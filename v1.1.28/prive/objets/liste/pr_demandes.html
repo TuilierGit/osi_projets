@@ -1,0 +1,129 @@
+[(#REM) 
+    
+    Description : 
+        Liste des demandes pour rejoindre un projet
+
+    Paramètres d'environnement : 
+        - id_projet (obligatoire)
+
+]
+
+<!-- On initialise les paramètres de tri par défaut -->
+[(#SET{defaut_tri, #ARRAY{
+    date, #ENV{date_sens, -1},
+    num titre, 1,
+    id_auteur_projet, 1,
+    points, -1
+}})]
+
+<!-- Début de création du tableau -->
+
+<B_liste_demandes>
+    <!-- Partie avant la boucle pour faire l'affichage -->
+
+    <div class="liste-objets auteur_projet">
+    <table class='spip liste'>
+
+    <!-- Première ligne de présentation du tableau -->
+    <!-- [<caption>
+        <strong class="caption">
+            (#ENV*{titre, singulier_ou_pluriel{osi_projets:unique_projet, osi_projets:nombre_de_projets}})
+        </strong>
+    </caption>] -->
+
+
+        <!-- En-tête du tableau -->
+        <thead>
+            <tr class='first_row'>
+                <!-- <th class='statut' scope='col'>[(#TRI{statut, <span title="<:lien_trier_statut|attribut_html:>">Auteur</span>, ajax})]</th> -->
+                <th class='titre principale' scope='col' colspan='1'><:osi_projets:auteur:></th>
+
+                <BOUCLE_osip_roles(spip_osip_roles){etat=1}>
+                    <th class='role' scope='col'>#TITRE</th>
+                </BOUCLE_osip_roles>
+                <th class='auteur' scope='col'><:osi_projets:validation:></th>
+
+                <!-- <th class='date secondaire' scope='col'>[(#TRI{date, <:date:>, ajax})]</th>
+                <th class='id' scope='col'>[(#TRI{id_rubrique, <:info_numero_abbreviation:>, ajax})]</th> -->
+            </tr>
+        </thead>
+
+
+    
+
+    <!-- Corps du tableau (boucle sur les projets) -->
+    <tbody>
+        <BOUCLE_liste_demandes(spip_auteur_projet) {id_auteur?} {id_projet?} {id_projet==#ENV{id_projet}} {etat?} {etat==0} {collecte #GET{id_projet}} {tri #ENV{par, id_projet}, pagination #ENV{nb, 10}} {!lang_select}>
+
+            <tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd, row_even})]">
+                
+                <td class='titre principale' [(#LOGO_PROJET|non) colspan='1']>
+                    <div class="inner">
+                        <a href="[(#URL_AUTEUR{#ID_AUTEUR})]">
+                            [(#ID_AUTEUR|affichage_nom_auteur)][#ID_AUTEUR]
+
+                            [(#REM)
+                            <!-- Si prénom et nom de famille cette présentation est mieux -->
+
+                                <BOUCLE_auteur_info_demande(spip_auteurs){tout}{id_auteur==#ID_AUTEUR}>
+                                    [(#PRENOM|oui)
+                                        [(#NOM_FAMILLE|oui)
+                                            #PRENOM #NOM_FAMILLE
+                                        ][(#NOM_FAMILLE|non)
+                                            #NOM
+                                        ]
+                                    ][(#PRENOM|non)
+                                        #NOM
+                                    ]
+                                </BOUCLE_auteur_info_demande> 
+                            ]
+
+                        </a>
+                    </div>
+                </td>
+
+
+                #SET{id_auteur_liste, #ID_AUTEUR}
+                <BOUCLE_osip_roles_demandes(spip_osip_roles){etat=1}>
+                    <td class='role'>
+                        <div class="inner">
+                            <p >[(#ID_ROLE|get_info_role{#ENV{id_projet}, #GET{id_auteur_liste}, 'valeur'}|affichage_oui_non)]</p>
+                        </div>
+                    </td>
+                </BOUCLE_osip_roles_demandes>
+
+
+                <td class='auteur pr_demandes_choix_de_reponse'>
+                    <div class="inner">
+                        [(#SESSION{id_auteur}|filtre_verifier_droits_demandes_configuration{#ENV{id_projet}}|oui)
+                            <a >#FORMULAIRE_CHANGER_CHAMP_PROJET{#ID_AUTEUR_PROJET, etat, 1, affichage_demande}</a>
+                            <a >#FORMULAIRE_CHANGER_CHAMP_PROJET{#ID_AUTEUR_PROJET, etat, -1,affichage_demande}</a>
+                            [(#SESSION{id_auteur}|filtre_verifier_droits_projet{#ENV{id_projet}}|oui)
+                                <a >#FORMULAIRE_CHANGER_CHAMP_PROJET{#ID_AUTEUR_PROJET, etat, -2,affichage_demande}</a>
+                            ]
+                        ][(#SESSION{id_auteur}|filtre_verifier_droits_demandes_configuration{#ENV{id_projet}}|non)
+                            <p><:osi_projets:refus_besoin_droits_administrateurs:></p>
+                        ]
+                    </div>
+                </td>
+
+            </tr>
+
+        </BOUCLE_liste_demandes>
+    </tbody>
+    </table>
+</div>
+
+</B_liste_demandes>
+<!-- Dans le cas où il n'y a aucun projet -->
+
+    <div class="message" >
+        <div class="message-top">
+            <strong class="osip-center">#ENV*{sinon,_T('osi_projets:aucune_demande')}</strong>
+        </div>
+    </div>
+
+<//B_liste_demandes>
+
+
+

@@ -1,0 +1,17 @@
+<BOUCLE_osip_roles(spip_osip_roles){etat=1}>
+    [(#ENV{id_auteur}|filtre_verifier_conditions_role{#ID_ROLE}|oui)
+        <li class="editer_#ID_ROLE obligatoire[ (#ENV**{erreurs}|table_valeur{#ID_ROLE}|oui)erreur]">	
+            <label class="container" for="champ_#ID_ROLE">
+                [(#QUESTION|oui)
+                    #QUESTION
+                ][(#QUESTION|non)
+                    <:osi_projets:demander_role:> "[(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ID_ROLE})]"
+                ]
+
+                <input type="checkbox" id="champ_#ID_ROLE" name="#ID_ROLE" value="1"[(#ENV{#ID_ROLE}|=={1}|oui) checked="checked"] >
+                [<span class='checkmark erreur_message'>(#ENV**{erreurs}|table_valeur{#ID_ROLE})</span>]
+                <span class="checkmark"></span>
+            </label>
+        </li>
+    ]
+</BOUCLE_osip_roles>            

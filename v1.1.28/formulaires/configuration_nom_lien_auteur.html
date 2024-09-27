@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="#CHEMIN{css/menu_configuration.css}" type="text/css">
+
+<div class="formulaire_spip formulaire_#FORM">
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+    [(#ENV{editable}|oui)
+        <form name="formulaire_#FORM" action="#ENV{action}" method="post">
+            #ACTION_FORMULAIRE{#ENV{action}}
+            <input type="hidden" name="debut_lien" value="#ENV{debut_lien}">
+            <input type="hidden" name="nom_lien" value="#ENV{nom_lien}">
+            
+            <div  class="editer_lien_auteur editer_acteur obligatoire">
+                
+                <div>
+                    <p>
+                        <strong><:osi_projets:texte_nouvelle_valeur:></strong>
+                    </p>
+                </div>
+                <div>
+                    [<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{#ENV{nom_lien}})</span>]
+                    <input type="text" id="champ_lien" name="champ_lien" value="[(#ENV{champ_lien})]" />
+                </div> 
+
+                <div class="boutons">
+                    <input type="submit" name="ok" value="<:osi_projets:valider_modifications:>" />
+                </div>
+            </div>
+        </form>
+    ]
+</div>

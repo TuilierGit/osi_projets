@@ -1,0 +1,91 @@
+[(#REM) 
+    
+    Description : 
+        Formulaire pour ajouter un auteur à un projet. Ce formulaire est prévu pour le back et NE prend PAS en compte les mots clés de "condition". 
+
+    Paramètres d'environnement : 
+        - id_projet
+
+]
+
+
+<link rel="stylesheet" href="#CHEMIN{css/form.css}" type="text/css" media="all" />
+
+
+
+<div class="formulaire_spip formulaire_#FORM">
+    
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+    <form name="formulaire_#FORM" action="#ENV{action}" method="post">
+        <div>
+            #ACTION_FORMULAIRE{#ENV{action}}
+            <ul>
+
+                <li class="editer_id_auteur obligatoire[ (#ENV**{erreurs}|table_valeur{message}|oui)erreur]">	
+
+                    <label for="id_auteur"><:osi_projets:selectionner_auteur:></label>
+                    <select name="id_auteur" id="id_auteur">
+                        <option value=""><:osi_projets:faire_choix:></option>
+                        <BOUCLE_auteur_selection(AUTEURS){tout}{par num id_auteur}>
+
+                        [(#ENV{editable}|oui)
+
+
+                            [(#SET{valeur_etat,[(#VAL{'etat'}|get_info_auteur_projet{#ID_AUTEUR,#ENV{id_projet}})]})]
+                            [(#GET{valeur_etat}|oui)
+                                [(#GET{valeur_etat}|=={-1}|oui)
+                                    <option value="#ID_AUTEUR">
+                                        [(#ID_AUTEUR|filtre_nom_auteur)] \[#ID_AUTEUR\]
+                                    </option>
+                                ]
+
+                                [(#VAL{'osi_projets/auteur_banni'}|filtre_get_configuration|=={1}|non)
+                                    [(#GET{valeur_etat}|=={-2}|oui)
+                                        <option value="#ID_AUTEUR">
+                                            [(#ID_AUTEUR|filtre_nom_auteur)] \[#ID_AUTEUR\] \(<:osi_projets:auteur_banni:>\)
+                                        </option>
+                                    ]   
+                                ]
+                                
+                            ]
+                            [(#GET{valeur_etat}|strlen|non)
+                                <option value="#ID_AUTEUR">
+                                    [(#ID_AUTEUR|filtre_nom_auteur)] \[#ID_AUTEUR\]
+                                </option>
+                            ]
+
+                        ]
+                        </BOUCLE_auteur_selection>
+                    </select>
+
+                </li>
+                
+                <BOUCLE_osip_roles(spip_osip_roles){etat=1}>
+                    [(#ENV{editable}|oui)
+                    <li class="editer_#ID_ROLE obligatoire[ (#ENV**{erreurs}|table_valeur{#ID_ROLE}|oui)erreur]">	
+                        <label class="container" for="champ_#ID_ROLE">
+                            
+                            [(#QUESTION|oui)
+                                #QUESTION
+                            ][(#QUESTION|non)
+                                <:osi_projets:demander_role:> "[(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ID_ROLE})]"
+                            ]
+            
+                            <input type="checkbox" id="champ_#ID_ROLE" name="#ID_ROLE" value="1"[(#ENV{#ID_ROLE}|=={1}|oui) checked="checked"] >
+                            [<span class='checkmark erreur_message'>(#ENV**{erreurs}|table_valeur{#ID_ROLE})</span>]
+                            <span class="checkmark"></span>
+                        </label>
+                    </li>
+                    ]
+                </BOUCLE_osip_roles>  
+                [(#ENV{editable}|oui)
+            </ul>
+            <p class="boutons">
+                <input type="submit" name="ok" value="<:osi_projets:ajouter_demande:>" />
+            </p>
+        </div>
+    </form>
+    ]
+</div>

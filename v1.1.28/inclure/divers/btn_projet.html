@@ -1,0 +1,12 @@
+<BOUCLE_projet(RUBRIQUES){id_projet?}>
+    <article class="styler#ID_PROJET">
+        <BOUCLE_projet_aux(RUBRIQUES){id_rubrique=#ID_RUBRIQUE}>
+            <span class="image">
+                [(#LOGO_RUBRIQUE|image_recadre{1:1,-,focus}|image_reduire{360,360}|vider_attribut{class})]
+            </span>
+            <a href="#URL_RUBRIQUE">
+                <h2>#TITRE</h2>
+            </a>
+        </BOUCLE_projet_aux>
+    </article>
+</BOUCLE_projet>

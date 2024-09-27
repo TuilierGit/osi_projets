@@ -1,0 +1,20 @@
+
+<:osip_notifications:role_demande:>
+
+<:osip_notifications:bonjour:>,
+
+<:osip_notifications:role_demande_debut:> "[(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ENV{id_role}})]" <:osip_notifications:pour_le_projet:> #ENV{id_projet} <:osip_notifications:nom_projet:> "[(#VAL{'spip_projets'}|get_info_table{'titre','id_projet',#ENV{id_projet}})]".  
+
+[(#VALEUR|=={1}|oui)
+
+    <:osip_notifications:role_demande_valide:> "[(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ENV{id_role}})]" <:osip_notifications:pour_ce_projet:>. 
+
+]
+[(#VALEUR|=={1}|non)
+
+    <:osip_notifications:role_demande_refuse:> "[(#VAL{'spip_osip_roles'}|get_info_table{'titre','id_role',#ENV{id_role}})]".
+
+]
+
+<:osip_notifications:signature:>
+

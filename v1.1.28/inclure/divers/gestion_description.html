@@ -1,0 +1,84 @@
+
+#CACHE{0}
+
+
+<style>
+    .menu-modification-personnalisation{
+        display: none;
+    }
+
+    h3.titrem {
+        display: none;
+    }
+
+
+    .formulaire_spip.formulaire_editer.formulaire_editer_logo.formulaire_editer_logo_rubrique form.noajax.hasajax {
+        border: solid;
+        padding: 15px;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        margin: 25px;
+        align-items: center;
+    }
+
+
+    .gestion-admin-description .editer.editer_refdoc_joindre {
+        display: none;
+    }
+
+
+    .gestion-admin-description div#joindre_mediatheque__new{
+        display: none;
+    }
+
+    .gestion-admin-description .sourceup{
+        display: none;
+    }
+
+    .gestion-admin-description div#joindre_distant__new{
+        display: none;
+    }
+
+    .gestion-admin-description div#defaultsubmit__new{
+        display: none;
+    }
+
+</style>
+
+<div>
+    <h3><:osi_projets:projet_edit_titre_menu_projet:></h3>
+    
+    <button onclick="$('#menu-modification-personnalisation').toggle();"><:osi_projets:projet_edit_bouton_menu_personnalisation:></button>
+
+    <div id="menu-modification-personnalisation" class="menu-modification-personnalisation">
+        <div class="personnaliser-projet-front">
+            #FORMULAIRE_PERSONNALISER_PROJET{#ENV{id_projet},env} 
+        </div>
+    </div>
+
+    <BOUCLE_rubrique_config_logo(RUBRIQUES){id_projet=#ENV{id_projet}}>
+        <div class="ajax">
+            #FORMULAIRE_EDITER_LOGO{rubrique,#ID_RUBRIQUE,#SELF}
+        </div>
+    </BOUCLE_rubrique_config_logo>
+
+
+
+    <BOUCLE_rubrique_config_documents(RUBRIQUES){id_projet=#ENV{id_projet}}>
+        [(#REM) Il faut pour cette partie activer la gestion des documents pour les rubriques
+        ]
+        <div style="border-top: solid 2px; padding: 30px 20px 15px 20px;">
+            <h3><:osi_projets:gestion_documents:></h3>
+            <div class="ajax">
+                #FORMULAIRE_JOINDRE_DOCUMENT{new,#ID_RUBRIQUE, rubrique}
+            </div>  
+            <div class="liste-des-documents-du-projet">
+                <INCLURE{fond=inclure/divers/documents,id_projet=#ID_PROJET,gestion=1,env,ajax}/>
+            </div>
+        </div>
+    </BOUCLE_rubrique_config_documents>
+
+    
+
+</div>

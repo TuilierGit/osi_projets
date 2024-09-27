@@ -1,0 +1,31 @@
+#CACHE{0}
+
+
+<div class="liste-messages">                            
+    <BOUCLE_sujet_contenu(FORUMS){tout}{objet=#ENV{objet}}{id_objet=#ENV{id_objet}}{id_thread=#ENV{id_thread}}{par date}{pagination 5}>
+        <div class="message">
+            <div class="message-top">
+                <div class="message-top-left">
+                    <div><:osi_projets:auteur:> : 
+                        <a href="[(#URL_AUTEUR{#ID_AUTEUR})]">
+                            #AUTEUR
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div><:osi_projets:date:> : [(#DATE|affdate)]</div>
+                </div>
+            </div>
+            <div class="message-cadre-interne">
+                #TEXTE
+            </div>
+        </div>
+    </BOUCLE_sujet_contenu>
+    #PAGINATION{prive}
+    </B_sujet_contenu>
+
+        <div class="message aucun-message">
+            <p><:osi_projets:aucun_message:></p>  
+        </div>
+    <//B_sujet_contenu>
+</div>

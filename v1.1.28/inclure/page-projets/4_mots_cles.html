@@ -1,0 +1,25 @@
+[(#SESSION{id_auteur}|filtre_verifier_droits_projet{#ENV{id_projet}}|oui)
+    <a href="[(#SELF|parametre_url{lang,#ENV{lang}}|parametre_url{onglet,gestion}|parametre_url{onglet_admin,mots_cles}|parametre_url{id_projet,#ENV{id_projet}})]">
+        <:osi_projets:aller_gestion_mots_cles:>
+    </a>
+]
+
+
+<div class="page-projet-mots-cles">
+    <div class="page-projet-mots-cles-container container-page-projet">
+        <B_mots>
+            <ul class="actions">
+              <BOUCLE_mots(MOTS){id_objet=#ID_PROJET}{objet=projet}{par num titre}>
+                <li><a href="#URL_MOT" class="button small">#TITRE</a></li>
+              </BOUCLE_mots>
+            </ul>
+        </B_mots>
+            <!-- Dans le cas où il n'y a aucun rôle -->
+            <div class="message" >
+                <div class="message-top">
+                    <strong class="osip-center">#ENV*{sinon,_T('osi_projets:aucun_mot_projet')}</strong>
+                </div>
+            </div>
+        <//B_mots>
+    </div>
+</div>

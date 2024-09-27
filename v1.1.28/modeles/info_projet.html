@@ -1,0 +1,44 @@
+<BOUCLE_rubrique(spip_projets){id_rubrique}>
+    [(#SESSION{id_auteur}|filtre_verifier_auteur_projet{#ID_PROJET}|oui)
+
+        <div>
+            <h3><:osi_projets:liste_mes_demandes:></h3>
+            <INCLURE{fond=prive/objets/liste/pr_demandes,id_projet=#ID_PROJET}>
+        </div>
+
+        
+        <div>
+            <h3><:osi_projets:liste_mes_demandes:></h3>
+            [(#OSIP_LISTE_DEMANDES{#ID_PROJET})]
+        </div>
+
+        <div>
+            <h3><:osi_projets:liste_participants:></h3>
+            <INCLURE{fond=prive/objets/liste/pr_auteurs,id_projet=#ID_PROJET}>
+        </div>
+
+        <div>
+            <h3><:osi_projets:liste_participants:></h3>
+            [(#OSIP_LISTE_AUTEURS{#ID_PROJET})]
+        </div>
+
+
+    ]
+    [(#SESSION{id_auteur}|filtre_verifier_auteur_projet{#ID_PROJET}|non)
+
+        [(#SESSION{id_auteur}|filtre_verifier_demande{#ID_PROJET}|non)
+            <h3><:osi_projets:rejoindre_le_projet:></h3>
+            #FORMULAIRE_AJOUTER_AUTEUR_PROJET{#ID_PROJET, #SESSION{id_auteur}}
+        ]
+
+        [(#SESSION{id_auteur}|filtre_verifier_demande{#ID_PROJET}|oui)
+            <p><:osi_projets:demande_en_cours:></p>
+        ]
+
+        [(#SESSION{id_auteur}|filtre_verifier_demande_echec{#ID_PROJET}|oui)
+            <p><:osi_projets:demande_refuse:></p>
+        ]
+    ]
+
+
+</BOUCLE_rubrique>
