@@ -1,0 +1,36 @@
+\documentclass[a4paper,11pt]{scrartcl}
+
+\usepackage[utf8]{inputenc} %-- pour utiliser des accents en français
+\usepackage{graphicx} % les graphiques
+\usepackage{mathpazo} % la police
+\usepackage{float} % pour avoir l'option H sur les figures
+\usepackage{listings}  % partie de code
+
+% Pour les tableaux 
+\usepackage{array,multirow,makecell}
+\makegapedcells
+\usepackage[table]{xcolor}
+\setcellgapes{1pt}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+
+% Packages nécessaires pour la bibliographie
+\usepackage{hyperref}  % Pour les hyperliens
+\usepackage{url}       % Pour la gestion des URLs
+
+% ///////////////////////////////////////////////////
+
+\begin{document}
+\input{./parts/1-page_titre.tex}
+\newpage
+\input{./parts/2-structure_du_rapport.tex}
+\newpage
+\input{./parts/3-annexes.tex}
+\newpage
+\input{./parts/4-references.tex}
+
+% ///////////////////////////////////////////////////
+
+\end{document}

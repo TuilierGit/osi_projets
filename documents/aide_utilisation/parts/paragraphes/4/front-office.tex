@@ -1,0 +1,11 @@
+Il existe différentes manières d'intéragir avec le plugin sur le front. Le plus simple est d'utiliser la structure déjà proposée avec le plugin. Pour faire cela, il suffit de rajouter dans le squelette des rubriques (le fichier \texttt{rubrique.html} du dossier \texttt{squelettes} du site) la ligne suivante : 
+\begin{lstlisting}
+    <INCLURE{fond=inclure/page-projets,id_rubrique=#ID_RUBRIQUE 
+    ,env,ajax,cache=0}/>
+\end{lstlisting}
+À cet emplacement apparaîtra :
+\begin{itemize}
+    \item Le bouton de création de projet, si c'est une rubrique définie dans la configuration du plugin.
+    \item Le menu du projet, si c'est une rubrique associée à un projet.
+    \item La liste des sous-projets.
+\end{itemize}

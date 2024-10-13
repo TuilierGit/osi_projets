@@ -1,0 +1,201 @@
+
+\subsection{Balises}
+
+On rappelle que l'on peut appeler une balise avec la notation \texttt{\#NOM\_DE\_LA\_BALISE}. Voici la liste des balises du plugin dans sa version actuelle :
+
+\vspace{0.5cm}
+
+% \begin{tabular}{|C{6.2cm}|C{3cm}|C{6cm}|}
+\begin{tabular}{|>{\centering\arraybackslash}m{6.2cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{6cm}|}
+    \hline
+    \rowcolor{lightgray} 
+    Nom de la balise & Arguments & Description \\ 
+    \hline
+    \textbf{OSIP\_AUTEUR\_DU\_PROJET} & id\_projet & Permet de récupérer le créateur du projet \\ 
+    \hline
+    \textbf{OSIP\_DEBUG\_NB\_PROJETS} & / & Permet de récupérer le nombre de projets dans la base de données \\ 
+    \hline
+    \textbf{OSIP\_DEBUG\_NB\_RUBRIQUES} & / & Permet de récupérer le nombre de rubriques associés à des projets dans la base de données \\ 
+    \hline
+    \textbf{OSIP\_ETAT\_LIEN\_PROJET} & / & Permet de récupérer l'état d'un membre (ses droits) \\ 
+    \hline
+    \textbf{OSIP\_LISTE\_ADMINISTRATEURS} & id\_projet & Permet de récupérer l'ensemble des administrateurs d'un projet.\\
+    \hline
+    \textbf{OSIP\_LISTE\_AUTEURS} & id\_projet & Permet de récupérer l'ensemble des auteurs associés à un projet \\
+
+    \hline
+    \textbf{OSIP\_LISTE\_AUTEURS\_VALEUR} & id\_projet, valeur & Permet de récupérer l'ensemble des auteurs avec des droits de correspondant à la valeur \\
+    \hline
+    \textbf{OSIP\_LISTE\_MEMBRES} & id\_projet & Permet de récupérer l'ensemble des auteurs avec des droits de membres d'un projet \\
+    \hline
+    \textbf{OSIP\_LISTE\_PROJETS} & id\_auteur & Permet de récupérer l'ensemble des projets d'un auteur \\ 
+    \hline
+    \textbf{OSIP\_MOTS} & id\_projet & Permet de récupérer l'ensemble des mots clés d'un projet \\
+    \hline
+    \textbf{OSIP\_NB\_AUTEURS} & id\_projet & Permet de récupérer le nombre d'auteur dans le projet \\
+    \hline
+    \textbf{OSIP\_NB\_DEMANDES} & id\_projet & Permet de récupérer le nombre de demandes dans un projet \\
+    \hline
+    \textbf{OSIP\_NB\_PROJETS} & / & Permet de récupérer le nombre de projets actifs \\ 
+    \hline
+\end{tabular}
+
+\newpage
+
+\subsection{Filtres}
+
+Les filtres sont nécessaires pour personnaliser dynamiquement les squelettes du site. En effet, on peut imaginer utiliser un filtre de la manière suivante. 
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+
+    [(#SESSION\{id_auteur\}|filtre_verifier_auteur_projet\{#ID_PROJET\}|oui)
+        L'auteur appartient au projet
+    ]
+    [(#SESSION\{id_auteur\}|filtre_verifier_auteur_projet\{#ID_PROJET\}|non)
+        L'auteur n'appartient pas au projet
+    ]
+
+\end{lstlisting}
+
+\vspace{0.4cm}
+
+\framebox{
+    \begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+        \textbf{Remarque:}\\
+        Spip ne supporte pas forcément l'utilisation de filtres lorsqu'il y a une boucle à l'intérieur. Pour résoudre cela, il faut fermer le filtre avant le début de la boucle, l'ouvrir dans la boucle et le fermer avant la fin, puis le ré-ouvrir après la boucle. 
+    \end{minipage}
+}
+
+\vspace{0.5cm}
+
+Dans ce plugin, deux familles de filtres ont été utilisées :
+\begin{itemize}
+    \item Des filtres GETTER pour récupérer certaines informations des tables
+    \item Des filtres de VÉRIFICATION pour rendre le code dynamique comme dans l'exemple précédent.
+\end{itemize}
+Nous allons voir les filtres les plus importants pour le front, qui sont les filtres de VÉRIFICATION. En voici une liste non exhaustive.
+
+\vspace{0.5cm}
+
+\begin{tabular}{|>{\centering\arraybackslash}m{6.2cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{6cm}|}
+    \hline
+    \rowcolor{lightgray} 
+    Nom du filtre & Arguments & Description \\ 
+    \hline
+    \textbf{filtre\_verifier\_createur\_projet} & id\_auteur \newline id\_projet & Permet de vérifier qu'un auteur est le createur du projet. \\ 
+    \hline
+    \textbf{filtre\_verifier\_administrateur\_projet} & id\_auteur \newline id\_projet & Permet de vérifier qu'un auteur est administrateur du projet. \\ 
+    \hline
+    \textbf{filtre\_verifier\_membre\_projet} & id\_auteur \newline id\_projet & Permet de vérifier qu'un auteur est membre du projet. \\ 
+    \hline
+    \textbf{filtre\_verifier\_auteur\_projet} & id\_auteur \newline id\_projet & Permet de vérifier qu'un auteur appartient au projet (membre, administrateur, createur). \\ 
+    \hline
+    \textbf{filtre\_verifier\_droits\_projet} & id\_auteur \newline id\_projet & Filtre qui permet de vérifier qu’un auteur a au moins les droits d'administrateur. \\ 
+    \hline
+    \textbf{filtre\_verifier\_droits\_demandes \newline \_configuration} & id\_auteur \newline id\_projet & Filtre qui permet de vérifier les droits nécessaires pour accepter les demandes. \\ 
+    \hline
+    \textbf{filtre\_verifier\_demande} & id\_auteur \newline id\_projet & Permet de vérifier qu'un auteur à fait une demande pour rejoindre un projet \\ 
+    \hline
+    \textbf{filtre\_verifier\_demande\_echec} & id\_auteur \newline id\_projet & Permet de vérifier qu'un auteur à fait une demande qui a été refusé. \\ 
+    \hline
+    \textbf{filtre\_verifier\_auteur\_banni} & id\_auteur \newline id\_projet & Permet de vérifier qu'un auteur a été banni du projet. \\ 
+    \hline
+    \textbf{filtre\_verifier\_rubrique\_projet} & id\_rubrique & Permet de vérifier que la rubrique est bien une rubrique d'un projet \\ 
+    \hline
+    \textbf{filtre\_verifier\_conditions\_projet} & id\_auteur \newline id\_projet & Filtre pour vérifier que les conditions d'un projet sont respectées par l'auteur. \\ 
+    \hline
+    \textbf{filtre\_verifier\_conditions\_role} & id\_auteur \newline id\_role & Filtre pour vérifier que les conditions d'un role sont respectées par l'auteur. \\ 
+    \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\newpage
+
+\subsection{Formulaires}
+
+On rappelle que l'on peut appeler un formulaire avec la notation \texttt{\#FORMULAIRE\_NOM\_DU\_FORMULAIRE}. Les arguments du tableau suivant ne représentent pas les caractéristiques du formulaire mais juste les arguments donnés en plus. Voici une liste non exhaustive des formulaires du plugin dans sa version actuelle, on ne citera pas ici les formulaires de configuration. 
+\vspace{0.5cm}
+\begin{tabular}{|>{\centering\arraybackslash}m{6.2cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{6cm}|}
+    \hline
+    \rowcolor{lightgray} 
+    Nom du formulaire & Arguments & Description \\ 
+    \hline
+    \textbf{AJOUTER\_AUTEUR\_PROJET} & id\_projet\newline id\_auteur & Permet de rajouter un auteur à un projet. On prend en compte ici des conditions. \\ 
+    \hline
+    \textbf{AJOUTER\_AUTRE\_AUTEUR\_PROJET} & id\_projet & Permet de rajouter un auteur precis à un projet. On ne prend pas en compte ici des conditions \\ 
+    \hline
+    \textbf{CHANGER\_CHAMP\_PROJET} & 
+    id\_auteur\_projet
+    \newline
+    champ
+    \newline
+    valeur
+    \newline
+    texte\_bouton
+    & Permet modifier un champ d'un membre d'un projet (définie grace à id\_auteur\_projet) afin de mettre une certaine valeur.\\ 
+    \hline
+    \textbf{CHANGER\_VALEUR\_ROLE} & 
+    id\_role
+    \newline
+    id\_auteur\_projet
+    \newline
+    valeur
+    \newline
+    texte\_bouton
+    & Permet d'accorder ou non un rôle à un participant à un projet.\\ 
+    \hline
+    \textbf{CLASSER\_MOT} & 
+    id\_mot
+    \newline
+    id\_objet
+    \newline
+    nom\_objet
+    \newline
+    texte\_bouton
+    & Permet de modifier le type d'un mot par rapport à un objet (Cf option 4)\\ 
+    \hline
+    \textbf{CREER\_UN\_PROJET} & id\_auteur & Permet de créer un projet. L'auteur qui créer le projet devient "createur" sur ce projet.\\
+    \hline
+    \textbf{CREER\_UN\_ROLE} & / & Permet de créer un nouveau rôle\\
+    \hline
+    \textbf{DEMANDER\_UN\_ROLE} & 
+    id\_projet
+    \newline
+    id\_auteurs
+    \newline
+    id\_role
+     & Permet à un auteur de demander un nouveau rôle\\
+    \hline
+    \textbf{DONNER\_RECOMPENSES} & 
+    id\_projet
+    & Permet de donner l'ensemble des récompenses d'un projet à un auteur. Cela lui accorde les mots clés.\\
+    \hline
+    \textbf{MODIFIER\_POSITION\_DU\_PROJET} & 
+    id\_projet
+    & Permet de modifier l'emplacement d'un projet. Ceci est à éviter surtout dans le cas d'une utilisation front du plugin.\\
+    \hline
+    \textbf{PERSONNALISER\_PROJET} & 
+    id\_projet
+    & Modifie l'ensemble des caractéristiques front d'un projet.\\
+    \hline
+\end{tabular}
+
+\newpage
+
+\vspace{0.5cm}
+
+\framebox{
+    \begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+        \textbf{Remarque :}\\
+        Le formulaire \textbf{CHANGER\_CHAMP\_PROJET} est un formulaire très puissant car c'est lui qui permet de modifier n'importe quelle information d'un participant à un projet (information de la table \texttt{spip\_auteur\_projet}). Il ne peut donc pas être utilisé en demandant à l'utilisateur de rentrer le champ et la valeur par mesure de sécurité au risque de se voir supprimer le membre. Il faut utiliser ce formulaire comme un bouton.\\
+        \newline
+        Voici un exemple d'utilisation :
+        \begin{center}
+            \texttt{\#FORMULAIRE\_CHANGER\_CHAMP\_PROJET\{\#ID\_AUTEUR\_PROJET, etat, 1, affichage\_etat\}}
+        \end{center}
+    \end{minipage}
+}
+
