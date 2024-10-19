@@ -76,6 +76,7 @@ function ajouter_projet($id_rubrique, $id_auteur , $statut = "prepa") {
         'id_auteur' => $id_auteur,
         'id_projet' => $id_projet,
         'etat' => '3',
+        'date' => 'NOW()',
         'maj' => 'NOW()'
     ));
 
