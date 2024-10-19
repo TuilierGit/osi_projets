@@ -124,7 +124,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_taille_moyen'   => 'Projet moyen',
 	'info_taille_grand'   => 'Grand projet',
 	'id_projet_explication'   => 'Si id_projet > 0 alors la rubrique représente un projet.',
-
+	'info_aucun_projet'   => "Il n'y a actuellement aucun projet.",
+	'info_un_projet'   => "Il y a actuellement qu'un projet.",
+	'info_actuellement'   => "Il y a actuellement",
 	
 	// M 
 	'modification' => 'Modification',

@@ -6,7 +6,8 @@
 ]
 
 <div>
-    <h2>Liste des projets</h2>
+    <h2><:osi_projets:liste_projets:></h2>
+    
     
     <div style="
         display: flex; 
@@ -14,7 +15,19 @@
         justify-content: space-between
     ">
         <div>
-            <p>Il y a actuellement #OSIP_NB_PROJETS{#ENV{id_rubrique}} projets.</p>
+            [(#OSIP_NB_PROJETS{#ENV{id_rubrique}}|=={0}|oui)
+                
+                <p><:osi_projets:info_aucun_projet:></p>
+            ]
+            [(#OSIP_NB_PROJETS{#ENV{id_rubrique}}|=={1}|oui)
+                <p><:osi_projets:info_un_projet:></p>
+            ]
+            [(#OSIP_NB_PROJETS{#ENV{id_rubrique}}|=={0}|non)
+                [(#OSIP_NB_PROJETS{#ENV{id_rubrique}}|=={1}|non)
+                    <p><:osi_projets:info_actuellement:> #OSIP_NB_PROJETS{#ENV{id_rubrique}} <:osi_projets:projets:>.</p>
+                ]
+            ]
+
 
             [(#REM)
                 <p>Il y a au total #OSIP_NB_TOUS_LES_PROJETS projets.</p>

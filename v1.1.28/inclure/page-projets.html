@@ -91,11 +91,12 @@
 <div class="debug-config-ecriture">
     <!-- [(#CONFIG{osi_projets/rubriques/#ID_RUBRIQUE}|=={1}) -->
         <div>
-            <h2>Ajouter un projet</h2>
-            #FORMULAIRE_CREER_UN_PROJET{#SESSION{id_auteur},#ID_RUBRIQUE}
+            <h2><:osi_projets:ajouter_un_projet:></h2>
+            #FORMULAIRE_CREER_UN_PROJET{#SESSION{id_auteur},#ENV{id_rubrique}}
         </div>
     <!-- ] -->
 </div>
+
 
 
 
