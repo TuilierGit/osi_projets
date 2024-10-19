@@ -227,6 +227,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 
 	// T
+	'projet_titre' => 'Titre du projet',
 	'titre_osi_projets' => 'OSI - Projets',
 	'titre_osi_causes' => 'OSI - Causes',
 	'titre_projets' => 'Projets',

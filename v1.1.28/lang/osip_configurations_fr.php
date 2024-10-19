@@ -27,7 +27,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'configuration_description_chemin_des_rubriques' => "Configurer le chemin utilisé pour la création des projets via le front.",
 	'configuration_titre_desinstallation_rubriques' => "Désinstallation des rubriques",
 	'configuration_description_desinstallation_rubriques' => "Désinstallation des rubriques associées à des projets lors de la suppression du plugin",
-    'configuration_titre_creer_sous_projet_int' => "Créer des sous projet sur le front",
+    'configuration_titre_creer_sous_projet_int' => "Créer des sous projets sur le front",
 	'configuration_description_creer_sous_projet_int' => "Permettre aux administrateurs d'un projet de créer un sous projet via le front.",
     
 
