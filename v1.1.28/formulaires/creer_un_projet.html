@@ -21,7 +21,7 @@
     [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
 
     [(#ENV{editable}|oui)
-    <form name="formulaire_#FORM" action="#ENV{action}|parametre_url{modele,projet}" method="post">
+    <form name="formulaire_#FORM" action="[(#ENV{action}|parametre_url{modele,projet})]" method="post">
         <div>
             #ACTION_FORMULAIRE{#ENV{action}}
             <ul>
